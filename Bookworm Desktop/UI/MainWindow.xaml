@@ -1,0 +1,45 @@
+﻿<Window x:Class="Bookworm_Desktop.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bookworm_Desktop.UI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1280"
+        Background="#444" FontFamily="Josefin Sans">
+    <Window.Resources>
+        <DataTemplate x:Key="LoginItemDataTemplate"> 
+            <Grid Margin="0,15,20,0">
+                <Border Name="Mask" CornerRadius="5" Background="White" Opacity="0"/>
+                <Button Padding="10" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="SemiBold" Foreground="White" FontSize="25" BorderThickness="0">
+                    <Button.Background>
+                        <SolidColorBrush Color="#000000" Opacity="0.75"/>
+                    </Button.Background>
+                        <Button.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=Mask}"/>
+                        </Button.OpacityMask>
+                    <Run Text="{Binding Name}"/>
+                </Button>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Image Source="/Resources/Images/background.png" Stretch="UniformToFill" Margin="-15,-15,-15,-15">
+            <Image.Effect>
+                <BlurEffect RenderingBias="Quality" Radius="15"/>
+            </Image.Effect>
+        </Image>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Medium" FontSize="100" TextAlignment="Center" Padding="45" Foreground="White">Login</TextBlock>
+            <ScrollViewer Width="540" Height="370">
+                <ItemsControl x:Name="LoginButtonsContainer" Width="540" ItemTemplate="{StaticResource LoginItemDataTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</Window>
