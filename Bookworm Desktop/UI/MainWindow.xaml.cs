@@ -22,6 +22,7 @@ namespace Bookworm_Desktop.UI
     {
         public class User // só pra prototyping mesmo
         {
+			public int Id { get; set; }
             public string Name { get; set; }
         }
 
@@ -31,17 +32,24 @@ namespace Bookworm_Desktop.UI
             InitializeComponent();
             itemSource = new List<User>
             {
-                new User {Name = "Juliana Craveiro Fusco"},
-                new User {Name = "Beatriz Silvério"},
-                new User {Name = "Guilherme Panza"},
-                new User {Name = "Khadeeja Ferraz Baloch"},
-                new User {Name = "Lucas Kenzo Cyra"},
-                new User {Name = "Lara Souza Ishibashi"},
-                new User {Name = "Sávio Alves Cabelo Pereira"}
+                new User {Id = 0, Name = "Juliana Craveiro Fusco"},
+                new User {Id = 1, Name = "Beatriz Silvério"},
+                new User {Id = 2, Name = "Guilherme Panza"},
+                new User {Id = 3, Name = "Khadeeja Ferraz Baloch"},
+                new User {Id = 4, Name = "Lucas Kenzo Cyra"},
+                new User {Id = 5, Name = "Lara Souza Ishibashi"},
+                new User {Id = 6, Name = "Sávio Alves Cabelo Pereira"}
             };
 
             LoginButtonsContainer.ItemsSource = itemSource;
 
         }
-    }
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			Button button = (Button) sender;
+			User clickedUser = (User) button.DataContext;
+			txtUsername.Text = clickedUser.Name;
+		}
+	}
 }

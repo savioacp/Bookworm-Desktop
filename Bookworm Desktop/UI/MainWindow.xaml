@@ -8,38 +8,141 @@
         Title="MainWindow" Height="720" Width="1280"
         Background="#444" FontFamily="Josefin Sans">
     <Window.Resources>
-        <DataTemplate x:Key="LoginItemDataTemplate"> 
+        <Storyboard x:Key="PanelBackStoryboard">
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=Container2}" Storyboard.TargetProperty="Height" To="0" From="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" Duration="00:00:00.7">
+                <DoubleAnimation.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation BeginTime="00:00:01" Storyboard.Target="{Binding ElementName=Container1}" Storyboard.TargetProperty="Height" To="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" From="0" Duration="00:00:00.7">
+                <DoubleAnimation.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation BeginTime="00:00:00.6" Storyboard.Target="{Binding ElementName=JoaoCu}" Storyboard.TargetProperty="(Effect).Radius" To="15" From="30" Duration="00:00:00.7">
+                <DoubleAnimation.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="PanelChangeStoryboard">
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=Container1}" Storyboard.TargetProperty="Height" From="{Binding ActualHeight, ElementName=Container1}" To="0" Duration="00:00:02.7">
+                <DoubleAnimation.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation BeginTime="00:00:01" Storyboard.Target="{Binding ElementName=Container2}" Storyboard.TargetProperty="Height" From="0" To="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" Duration="00:00:00.7">
+                <DoubleAnimation.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation BeginTime="00:00:00.6" Storyboard.Target="{Binding ElementName=JoaoCu}" Storyboard.TargetProperty="(Effect).Radius" From="15" To="30" Duration="00:00:00.7">
+                <DoubleAnimation.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <DataTemplate x:Key="LoginItemDataTemplate">
             <Grid Margin="0,15,20,0">
-                <Border Name="Mask" CornerRadius="5" Background="White" Opacity="0"/>
-                <Button Padding="10" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="SemiBold" Foreground="White" FontSize="25" BorderThickness="0">
+                <Border Name="Mask" CornerRadius="5" Background="White" Opacity="0" Visibility="Visible"/>
+                <Button Padding="10" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="SemiBold" Foreground="White" FontSize="25" BorderThickness="0" Click="Button_Click">
+                    <!--<Button.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=Mask}" />
+                    </Button.OpacityMask>-->
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard Storyboard="{StaticResource PanelChangeStoryboard}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Black"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                     <Button.Background>
                         <SolidColorBrush Color="#000000" Opacity="0.75"/>
                     </Button.Background>
-                        <Button.OpacityMask>
-                            <VisualBrush Visual="{Binding ElementName=Mask}"/>
-                        </Button.OpacityMask>
                     <Run Text="{Binding Name}"/>
                 </Button>
             </Grid>
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Image Source="/Resources/Images/background.png" Stretch="UniformToFill" Margin="-15,-15,-15,-15">
+        <Image Source="/Resources/Images/background.png" Stretch="UniformToFill" Margin="-15,-15,-15,-15" x:Name="JoaoCu">
             <Image.Effect>
-                <BlurEffect RenderingBias="Quality" Radius="15"/>
+                <BlurEffect Radius="15"/>
             </Image.Effect>
         </Image>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Medium" FontSize="100" TextAlignment="Center" Padding="45" Foreground="White">Login</TextBlock>
-            <ScrollViewer Width="540" Height="370">
-                <ItemsControl x:Name="LoginButtonsContainer" Width="540" ItemTemplate="{StaticResource LoginItemDataTemplate}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </ScrollViewer>
-        </StackPanel>
+        <Grid x:Name="Container1" Height="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" VerticalAlignment="Top">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock FontFamily="/Resources/Fonts/#Josefin Sans" Grid.Row="0" FontWeight="Medium" FontSize="100" TextAlignment="Center" Padding="45" Foreground="White">Login</TextBlock>
+                <ScrollViewer Width="540" Grid.Row="1" Margin="0,15,0,150">
+                    <ItemsControl x:Name="LoginButtonsContainer" Width="540" ItemTemplate="{StaticResource LoginItemDataTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        <Grid x:Name="Container2" VerticalAlignment="Top" Height="0">
+            <Button Background="Transparent" BorderBrush="Transparent" Foreground="White" FontFamily="/Resources/Fonts/#Josefin Sans" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="64">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard Storyboard="{StaticResource PanelBackStoryboard}"/>
+                    </EventTrigger>
+                </Button.Triggers>
+                Voltar
+            </Button>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Ellipse Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}" Stroke="Black" StrokeThickness="5" MaxWidth="320">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Resources/Images/perfil.jpg" Stretch="UniformToFill" />
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock Name="txtUsername" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Medium" FontSize="30" TextAlignment="Center" Padding="25" Foreground="Black">Juliana Craveiro Fusco</TextBlock>
+                <Grid MinWidth="552" MaxWidth="580">
+                    <TextBox Width="{Binding Parent.ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Padding="15" BorderThickness="0" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Medium" FontSize="25">
+                        <TextBox.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.75"/>
+                        </TextBox.Background>
+                        <TextBox.Foreground>
+                            <LinearGradientBrush>
+                                <GradientStop Color="Red" Offset="0.0"/>
+                                <GradientStop Color="Orange" Offset="0.17"/>
+                                <GradientStop Color="Yellow" Offset="0.33"/>
+                                <GradientStop Color="Green" Offset="0.5"/>
+                                <GradientStop Color="Blue" Offset="0.67"/>
+                                <GradientStop Color="Indigo" Offset="0.83"/>
+                                <GradientStop Color="Violet" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </TextBox.Foreground>
+                    </TextBox>
+                    <TextBlock Width="Auto" IsHitTestVisible="False" Text="Digite sua Senha" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Medium" FontSize="25" Margin="1,3,0,-3" Foreground="DarkGray" Padding="15">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </StackPanel>
+        </Grid>
     </Grid>
+
 </Window>
