@@ -26,7 +26,7 @@
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Key="PanelChangeStoryboard">
-            <DoubleAnimation Storyboard.Target="{Binding ElementName=Container1}" Storyboard.TargetProperty="Height" From="{Binding ActualHeight, ElementName=Container1}" To="0" Duration="00:00:02.7">
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=Container1}" Storyboard.TargetProperty="Height" From="{Binding ActualHeight, ElementName=Container1}" To="0" Duration="00:00:00.7">
                 <DoubleAnimation.EasingFunction>
                     <QuarticEase EasingMode="EaseInOut"/>
                 </DoubleAnimation.EasingFunction>
@@ -54,6 +54,11 @@
                             <BeginStoryboard Storyboard="{StaticResource PanelChangeStoryboard}" />
                         </EventTrigger>
                     </Button.Triggers>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
