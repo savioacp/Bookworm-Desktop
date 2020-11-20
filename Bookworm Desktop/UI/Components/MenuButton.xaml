@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Bookworm_Desktop.UI.Components.MenuButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bookworm_Desktop.UI.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="46" d:DesignWidth="256" MinHeight="46">
+    <Grid x:Name="MainContainer">
+        <Grid.Background>
+            <SolidColorBrush Color="{StaticResource PrimaryColorBrush}" Opacity="0"/>
+        </Grid.Background>
+        <Button x:Name="MainBtn" Cursor="Hand" Margin="0">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="#FCFCFC" FontFamily="/Resources/Fonts/#Josefin Sans">
+                        <ContentPresenter/>
+                    </TextBlock>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</UserControl>

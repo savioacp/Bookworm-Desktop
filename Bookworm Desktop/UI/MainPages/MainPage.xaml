@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Bookworm_Desktop.UI.MainPages.MainPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bookworm_Desktop.UI.MainPages" xmlns:components="clr-namespace:Bookworm_Desktop.UI.Components" xmlns:views="clr-namespace:Bookworm_Desktop.UI.MainPages.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280" 
+             x:Name="MainPageControl">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="256"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <StackPanel.Background>
+                <SolidColorBrush Color="{StaticResource PrimaryColorBrush}" Opacity="0.9"/>
+            </StackPanel.Background>
+            <components:UserCard Margin="0,0,0,10" />
+            <components:MenuButton Text="Início" Selected="True" >
+                <components:MenuButton.AssociatedView>
+                    <views:HomeView />
+                </components:MenuButton.AssociatedView>
+            </components:MenuButton>
+
+            <components:MenuButton Text="Acervo">
+                <components:MenuButton.AssociatedView>
+                    <views:HomeView />
+                </components:MenuButton.AssociatedView>
+            </components:MenuButton>
+
+            <components:MenuButton Text="Funcionários">
+                <components:MenuButton.AssociatedView>
+                    <views:FuncionariosView />
+                </components:MenuButton.AssociatedView>
+            </components:MenuButton>
+
+            <components:MenuButton Text="Leitores">
+                <components:MenuButton.AssociatedView>
+                    <views:HomeView />
+                </components:MenuButton.AssociatedView>
+            </components:MenuButton>
+        </StackPanel>
+        <ContentControl Name="MainContent" Grid.Column="1" Margin="0"/>
+    </Grid>
+</UserControl>

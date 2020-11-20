@@ -1,0 +1,12 @@
+﻿<Window x:Class="Bookworm_Desktop.UI.Tests.SpinnerTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bookworm_Desktop.UI.Tests" xmlns:components="clr-namespace:Bookworm_Desktop.UI.Components"
+        mc:Ignorable="d"
+        Title="SpinnerTest" Height="450" Width="800">
+    <Grid>
+        <components:Spinner Width="128" Height="128"/>
+    </Grid>
+</Window>

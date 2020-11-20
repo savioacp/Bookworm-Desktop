@@ -1,0 +1,46 @@
+﻿<Window x:Class="Bookworm_Desktop.UI.Dialogs.ConfirmDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bookworm_Desktop.UI.Dialogs"
+        xmlns:components="clr-namespace:Bookworm_Desktop.UI.Components"
+        mc:Ignorable="d"
+        Title="ConfirmDialog" Height="355.579" Width="800" ShowInTaskbar="False" WindowStyle="None" BorderThickness="0" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent">
+    <Border>
+        <Border.BorderBrush>#AABBCC</Border.BorderBrush>
+        <Border.BorderThickness>2</Border.BorderThickness>
+        <Border.CornerRadius>5</Border.CornerRadius>
+        <Border.Background>#19323C</Border.Background>
+        <Grid MouseDown="OnHeaderDrag">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="75"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Name="txtTitle" Margin="15,35,15,0" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="SemiBold" FontSize="35" Foreground="#FCFCFC">Título</TextBlock>
+            <TextBlock Grid.Row="1" x:Name="txtDescription" Margin="25,0,15,15" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Light" FontSize="30" Foreground="#FCFCFC">Esta ação não tem mais volta.</TextBlock>
+
+            <RadioButton IsChecked="True" Name="RadioButtonNão" GroupName="DialogRadioButton" Grid.Row="2" Style="{StaticResource RadioButtonStyled}" VerticalAlignment="Center" Margin="25,0,0,0" VerticalContentAlignment="Center">
+                <TextBlock FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Light" FontSize="27" Foreground="#FCFCFC" Margin="0,5,0,0">
+                    Não
+                </TextBlock>
+            </RadioButton>
+            <RadioButton Grid.Row="3" Name="RadioButtonSim" GroupName="DialogRadioButton" Style="{StaticResource RadioButtonStyled}" VerticalAlignment="Center" Margin="25,0,0,0" VerticalContentAlignment="Center" >
+                <TextBlock FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Light" FontSize="27" Foreground="#FCFCFC" Margin="0,5,0,0">
+                    Sim
+                </TextBlock>
+            </RadioButton>
+            <components:Clickable Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0" Click="OnConfirm">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Normal" FontSize="25" Foreground="#FCFCFC">
+                        Confirmar
+                    </TextBlock>
+                    <Image Source="/Resources/Images/next 7.png" Stretch="Uniform" Height="25"/>
+                </StackPanel>
+            </components:Clickable>
+        </Grid>
+    </Border>
+</Window>

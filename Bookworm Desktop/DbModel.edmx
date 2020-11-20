@@ -1,0 +1,815 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TCCFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCargo">
+          <Key>
+            <PropertyRef Name="IDCargo" />
+          </Key>
+          <Property Name="IDCargo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomeCargo" Type="varchar" MaxLength="50" />
+          <Property Name="NivelAcesso" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblEmprestimo">
+          <Key>
+            <PropertyRef Name="IDEmprestimo" />
+          </Key>
+          <Property Name="IDEmprestimo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDFuncionario" Type="int" Nullable="false" />
+          <Property Name="IDProduto" Type="int" Nullable="false" />
+          <Property Name="IDLeitor" Type="int" Nullable="false" />
+          <Property Name="DataRetirada" Type="date" Nullable="false" />
+          <Property Name="DataEntrega" Type="date" Nullable="false" />
+          <Property Name="Renovacao" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblEvento">
+          <Key>
+            <PropertyRef Name="IDEvento" />
+          </Key>
+          <Property Name="IDEvento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descricao" Type="varchar(max)" />
+          <Property Name="Responsavel" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblFavoritos">
+          <Key>
+            <PropertyRef Name="IDFavorito" />
+          </Key>
+          <Property Name="IDFavorito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDLeitor" Type="int" />
+          <Property Name="IDProduto" Type="int" />
+        </EntityType>
+        <EntityType Name="tblFuncionario">
+          <Key>
+            <PropertyRef Name="IDFuncionario" />
+          </Key>
+          <Property Name="IDFuncionario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCargo" Type="int" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CPF" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="RG" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="Endereco" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Telefone" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Salt" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="ImagemFunc" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblGenero">
+          <Key>
+            <PropertyRef Name="IDGenero" />
+          </Key>
+          <Property Name="IDGenero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomeGenero" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tblGeneroProduto">
+          <Key>
+            <PropertyRef Name="IDGeneroProduto" />
+          </Key>
+          <Property Name="IDGeneroProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDGenero" Type="int" />
+          <Property Name="IDProduto" Type="int" />
+        </EntityType>
+        <EntityType Name="tblLeitor">
+          <Key>
+            <PropertyRef Name="IDLeitor" />
+          </Key>
+          <Property Name="IDLeitor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDTipoLeitor" Type="int" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CPF" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="RG" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="DataNasc" Type="date" />
+          <Property Name="Endereco" Type="varchar" MaxLength="150" />
+          <Property Name="Telefone" Type="varchar" MaxLength="11" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DataCadastro" Type="date" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Salt" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="ImagemLeitor" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblProduto">
+          <Key>
+            <PropertyRef Name="IDProduto" />
+          </Key>
+          <Property Name="IDProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="18" />
+          <Property Name="TipoAcervo" Type="int" Nullable="false" />
+          <Property Name="NomeLivro" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="AutoresLivro" Type="varchar" MaxLength="100" />
+          <Property Name="AnoEdicao" Type="date" />
+          <Property Name="Setor" Type="int" Nullable="false" />
+          <Property Name="Fileira" Type="int" Nullable="false" />
+          <Property Name="Prateleira" Type="int" Nullable="false" />
+          <Property Name="TipoProduto" Type="varchar" MaxLength="50" />
+          <Property Name="Editora" Type="varchar" MaxLength="50" />
+          <Property Name="DescricaoProd" Type="varchar(max)" />
+          <Property Name="ImagemProd" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblReserva">
+          <Key>
+            <PropertyRef Name="IDReserva" />
+          </Key>
+          <Property Name="IDReserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDProduto" Type="int" />
+          <Property Name="IDLeitor" Type="int" />
+          <Property Name="DataReserva" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTipoLeitor">
+          <Key>
+            <PropertyRef Name="IDTipoLeitor" />
+          </Key>
+          <Property Name="IDTipoLeitor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoLeitor" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblEmpres__IDFun__3A81B327">
+          <End Role="tblFuncionario" Type="Self.tblFuncionario" Multiplicity="1" />
+          <End Role="tblEmprestimo" Type="Self.tblEmprestimo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFuncionario">
+              <PropertyRef Name="IDFuncionario" />
+            </Principal>
+            <Dependent Role="tblEmprestimo">
+              <PropertyRef Name="IDFuncionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmpres__IDLei__3C69FB99">
+          <End Role="tblLeitor" Type="Self.tblLeitor" Multiplicity="1" />
+          <End Role="tblEmprestimo" Type="Self.tblEmprestimo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLeitor">
+              <PropertyRef Name="IDLeitor" />
+            </Principal>
+            <Dependent Role="tblEmprestimo">
+              <PropertyRef Name="IDLeitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmpres__IDPro__3B75D760">
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="1" />
+          <End Role="tblEmprestimo" Type="Self.tblEmprestimo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="IDProduto" />
+            </Principal>
+            <Dependent Role="tblEmprestimo">
+              <PropertyRef Name="IDProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblFavori__IDLei__36B12243">
+          <End Role="tblLeitor" Type="Self.tblLeitor" Multiplicity="0..1" />
+          <End Role="tblFavoritos" Type="Self.tblFavoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLeitor">
+              <PropertyRef Name="IDLeitor" />
+            </Principal>
+            <Dependent Role="tblFavoritos">
+              <PropertyRef Name="IDLeitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblFavori__IDPro__37A5467C">
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="0..1" />
+          <End Role="tblFavoritos" Type="Self.tblFavoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="IDProduto" />
+            </Principal>
+            <Dependent Role="tblFavoritos">
+              <PropertyRef Name="IDProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblFuncio__IDCar__2D27B809">
+          <End Role="tblCargo" Type="Self.tblCargo" Multiplicity="0..1" />
+          <End Role="tblFuncionario" Type="Self.tblFuncionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCargo">
+              <PropertyRef Name="IDCargo" />
+            </Principal>
+            <Dependent Role="tblFuncionario">
+              <PropertyRef Name="IDCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblGenero__IDGen__276EDEB3">
+          <End Role="tblGenero" Type="Self.tblGenero" Multiplicity="0..1" />
+          <End Role="tblGeneroProduto" Type="Self.tblGeneroProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGenero">
+              <PropertyRef Name="IDGenero" />
+            </Principal>
+            <Dependent Role="tblGeneroProduto">
+              <PropertyRef Name="IDGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblGenero__IDPro__286302EC">
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="0..1" />
+          <End Role="tblGeneroProduto" Type="Self.tblGeneroProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="IDProduto" />
+            </Principal>
+            <Dependent Role="tblGeneroProduto">
+              <PropertyRef Name="IDProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblLeitor__IDTip__33D4B598">
+          <End Role="tblTipoLeitor" Type="Self.tblTipoLeitor" Multiplicity="0..1" />
+          <End Role="tblLeitor" Type="Self.tblLeitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipoLeitor">
+              <PropertyRef Name="IDTipoLeitor" />
+            </Principal>
+            <Dependent Role="tblLeitor">
+              <PropertyRef Name="IDTipoLeitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__IDLei__403A8C7D">
+          <End Role="tblLeitor" Type="Self.tblLeitor" Multiplicity="0..1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLeitor">
+              <PropertyRef Name="IDLeitor" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="IDLeitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__IDPro__3F466844">
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="0..1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="IDProduto" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="IDProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TCCFModelStoreContainer">
+          <EntitySet Name="tblCargo" EntityType="Self.tblCargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEmprestimo" EntityType="Self.tblEmprestimo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEvento" EntityType="Self.tblEvento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFavoritos" EntityType="Self.tblFavoritos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFuncionario" EntityType="Self.tblFuncionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGenero" EntityType="Self.tblGenero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGeneroProduto" EntityType="Self.tblGeneroProduto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLeitor" EntityType="Self.tblLeitor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProduto" EntityType="Self.tblProduto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblReserva" EntityType="Self.tblReserva" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTipoLeitor" EntityType="Self.tblTipoLeitor" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblEmpres__IDFun__3A81B327" Association="Self.FK__tblEmpres__IDFun__3A81B327">
+            <End Role="tblFuncionario" EntitySet="tblFuncionario" />
+            <End Role="tblEmprestimo" EntitySet="tblEmprestimo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmpres__IDLei__3C69FB99" Association="Self.FK__tblEmpres__IDLei__3C69FB99">
+            <End Role="tblLeitor" EntitySet="tblLeitor" />
+            <End Role="tblEmprestimo" EntitySet="tblEmprestimo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmpres__IDPro__3B75D760" Association="Self.FK__tblEmpres__IDPro__3B75D760">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblEmprestimo" EntitySet="tblEmprestimo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblFavori__IDLei__36B12243" Association="Self.FK__tblFavori__IDLei__36B12243">
+            <End Role="tblLeitor" EntitySet="tblLeitor" />
+            <End Role="tblFavoritos" EntitySet="tblFavoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblFavori__IDPro__37A5467C" Association="Self.FK__tblFavori__IDPro__37A5467C">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblFavoritos" EntitySet="tblFavoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblFuncio__IDCar__2D27B809" Association="Self.FK__tblFuncio__IDCar__2D27B809">
+            <End Role="tblCargo" EntitySet="tblCargo" />
+            <End Role="tblFuncionario" EntitySet="tblFuncionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblGenero__IDGen__276EDEB3" Association="Self.FK__tblGenero__IDGen__276EDEB3">
+            <End Role="tblGenero" EntitySet="tblGenero" />
+            <End Role="tblGeneroProduto" EntitySet="tblGeneroProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblGenero__IDPro__286302EC" Association="Self.FK__tblGenero__IDPro__286302EC">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblGeneroProduto" EntitySet="tblGeneroProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblLeitor__IDTip__33D4B598" Association="Self.FK__tblLeitor__IDTip__33D4B598">
+            <End Role="tblTipoLeitor" EntitySet="tblTipoLeitor" />
+            <End Role="tblLeitor" EntitySet="tblLeitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__IDLei__403A8C7D" Association="Self.FK__tblReserv__IDLei__403A8C7D">
+            <End Role="tblLeitor" EntitySet="tblLeitor" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__IDPro__3F466844" Association="Self.FK__tblReserv__IDPro__3F466844">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TCCFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCargo">
+          <Key>
+            <PropertyRef Name="IDCargo" />
+          </Key>
+          <Property Name="IDCargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomeCargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NivelAcesso" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFuncionario" Relationship="Self.FK__tblFuncio__IDCar__2C3393D0" FromRole="tblCargo" ToRole="tblFuncionario" />
+        </EntityType>
+        <EntityType Name="tblEmprestimo">
+          <Key>
+            <PropertyRef Name="IDEmprestimo" />
+          </Key>
+          <Property Name="IDEmprestimo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDFuncionario" Type="Int32" Nullable="false" />
+          <Property Name="IDProduto" Type="Int32" Nullable="false" />
+          <Property Name="IDLeitor" Type="Int32" Nullable="false" />
+          <Property Name="DataRetirada" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataEntrega" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Renovacao" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFuncionario" Relationship="Self.FK__tblEmpres__IDFun__35BCFE0A" FromRole="tblEmprestimo" ToRole="tblFuncionario" />
+          <NavigationProperty Name="tblLeitor" Relationship="Self.FK__tblEmpres__IDLei__37A5467C" FromRole="tblEmprestimo" ToRole="tblLeitor" />
+          <NavigationProperty Name="tblProduto" Relationship="Self.FK__tblEmpres__IDPro__36B12243" FromRole="tblEmprestimo" ToRole="tblProduto" />
+        </EntityType>
+        <EntityType Name="tblEvento">
+          <Key>
+            <PropertyRef Name="IDEvento" />
+          </Key>
+          <Property Name="IDEvento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Responsavel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblFuncionario">
+          <Key>
+            <PropertyRef Name="IDFuncionario" />
+          </Key>
+          <Property Name="IDFuncionario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCargo" Type="Int32" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RG" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Endereco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Senha" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImagemFunc" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tblCargo" Relationship="Self.FK__tblFuncio__IDCar__2C3393D0" FromRole="tblFuncionario" ToRole="tblCargo" />
+          <NavigationProperty Name="tblEmprestimo" Relationship="Self.FK__tblEmpres__IDFun__35BCFE0A" FromRole="tblFuncionario" ToRole="tblEmprestimo" />
+        </EntityType>
+        <EntityType Name="tblGenero">
+          <Key>
+            <PropertyRef Name="IDGenero" />
+          </Key>
+          <Property Name="IDGenero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomeGenero" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblGeneroProduto" Relationship="TCCFModel.FK__tblGenero__IDGen__276EDEB3" FromRole="tblGenero" ToRole="tblGeneroProduto" />
+        </EntityType>
+        <EntityType Name="tblLeitor">
+          <Key>
+            <PropertyRef Name="IDLeitor" />
+          </Key>
+          <Property Name="IDLeitor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDTipoLeitor" Type="Int32" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RG" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DataNasc" Type="DateTime" Precision="0" />
+          <Property Name="Endereco" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Senha" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImagemLeitor" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tblEmprestimo" Relationship="Self.FK__tblEmpres__IDLei__37A5467C" FromRole="tblLeitor" ToRole="tblEmprestimo" />
+          <NavigationProperty Name="tblTipoLeitor" Relationship="Self.FK__tblLeitor__IDTip__32E0915F" FromRole="tblLeitor" ToRole="tblTipoLeitor" />
+          <NavigationProperty Name="tblReserva" Relationship="Self.FK__tblReserv__IDLei__3A81B327" FromRole="tblLeitor" ToRole="tblReserva" />
+          <NavigationProperty Name="tblFavoritos" Relationship="TCCFModel.FK__tblFavori__IDLei__36B12243" FromRole="tblLeitor" ToRole="tblFavoritos" />
+        </EntityType>
+        <EntityType Name="tblProduto">
+          <Key>
+            <PropertyRef Name="IDProduto" />
+          </Key>
+          <Property Name="IDProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoAcervo" Type="Int32" Nullable="false" />
+          <Property Name="NomeLivro" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AutoresLivro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AnoEdicao" Type="DateTime" Precision="0" />
+          <Property Name="Setor" Type="Int32" Nullable="false" />
+          <Property Name="Fileira" Type="Int32" Nullable="false" />
+          <Property Name="Prateleira" Type="Int32" Nullable="false" />
+          <Property Name="TipoProduto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Editora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DescricaoProd" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImagemProd" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tblEmprestimo" Relationship="Self.FK__tblEmpres__IDPro__36B12243" FromRole="tblProduto" ToRole="tblEmprestimo" />
+          <NavigationProperty Name="tblReserva" Relationship="Self.FK__tblReserv__IDPro__398D8EEE" FromRole="tblProduto" ToRole="tblReserva" />
+          <Property Name="ISBN" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblFavoritos" Relationship="TCCFModel.FK__tblFavori__IDPro__37A5467C" FromRole="tblProduto" ToRole="tblFavoritos" />
+          <NavigationProperty Name="tblGeneroProduto" Relationship="TCCFModel.FK__tblGenero__IDPro__286302EC" FromRole="tblProduto" ToRole="tblGeneroProduto" />
+        </EntityType>
+        <EntityType Name="tblTipoLeitor">
+          <Key>
+            <PropertyRef Name="IDTipoLeitor" />
+          </Key>
+          <Property Name="IDTipoLeitor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoLeitor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblLeitor" Relationship="Self.FK__tblLeitor__IDTip__32E0915F" FromRole="tblTipoLeitor" ToRole="tblLeitor" />
+        </EntityType>
+        <EntityType Name="tblReserva">
+          <Key>
+            <PropertyRef Name="IDReserva" />
+          </Key>
+          <Property Name="IDProduto" Type="Int32" />
+          <Property Name="IDLeitor" Type="Int32" />
+          <Property Name="DataReserva" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="tblLeitor" Relationship="Self.FK__tblReserv__IDLei__3A81B327" FromRole="tblReserva" ToRole="tblLeitor" />
+          <NavigationProperty Name="tblProduto" Relationship="Self.FK__tblReserv__IDPro__398D8EEE" FromRole="tblReserva" ToRole="tblProduto" />
+          <Property Name="IDReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK__tblFuncio__IDCar__2C3393D0">
+          <End Role="tblCargo" Type="Self.tblCargo" Multiplicity="0..1" />
+          <End Role="tblFuncionario" Type="Self.tblFuncionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCargo">
+              <PropertyRef Name="IDCargo" />
+            </Principal>
+            <Dependent Role="tblFuncionario">
+              <PropertyRef Name="IDCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmpres__IDFun__35BCFE0A">
+          <End Role="tblFuncionario" Type="Self.tblFuncionario" Multiplicity="1" />
+          <End Role="tblEmprestimo" Type="Self.tblEmprestimo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFuncionario">
+              <PropertyRef Name="IDFuncionario" />
+            </Principal>
+            <Dependent Role="tblEmprestimo">
+              <PropertyRef Name="IDFuncionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmpres__IDLei__37A5467C">
+          <End Role="tblLeitor" Type="Self.tblLeitor" Multiplicity="1" />
+          <End Role="tblEmprestimo" Type="Self.tblEmprestimo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLeitor">
+              <PropertyRef Name="IDLeitor" />
+            </Principal>
+            <Dependent Role="tblEmprestimo">
+              <PropertyRef Name="IDLeitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmpres__IDPro__36B12243">
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="1" />
+          <End Role="tblEmprestimo" Type="Self.tblEmprestimo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="IDProduto" />
+            </Principal>
+            <Dependent Role="tblEmprestimo">
+              <PropertyRef Name="IDProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblLeitor__IDTip__32E0915F">
+          <End Role="tblTipoLeitor" Type="Self.tblTipoLeitor" Multiplicity="0..1" />
+          <End Role="tblLeitor" Type="Self.tblLeitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipoLeitor">
+              <PropertyRef Name="IDTipoLeitor" />
+            </Principal>
+            <Dependent Role="tblLeitor">
+              <PropertyRef Name="IDTipoLeitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__IDLei__3A81B327">
+          <End Role="tblLeitor" Type="Self.tblLeitor" Multiplicity="0..1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLeitor">
+              <PropertyRef Name="IDLeitor" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="IDLeitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblReserv__IDPro__398D8EEE">
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="0..1" />
+          <End Role="tblReserva" Type="Self.tblReserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="IDProduto" />
+            </Principal>
+            <Dependent Role="tblReserva">
+              <PropertyRef Name="IDProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TCCFEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCargo" EntityType="Self.tblCargo" />
+          <EntitySet Name="tblEmprestimo" EntityType="Self.tblEmprestimo" />
+          <EntitySet Name="tblEvento" EntityType="Self.tblEvento" />
+          <EntitySet Name="tblFuncionario" EntityType="Self.tblFuncionario" />
+          <EntitySet Name="tblGenero" EntityType="Self.tblGenero" />
+          <EntitySet Name="tblLeitor" EntityType="Self.tblLeitor" />
+          <EntitySet Name="tblProduto" EntityType="Self.tblProduto" />
+          <EntitySet Name="tblTipoLeitor" EntityType="Self.tblTipoLeitor" />
+          <EntitySet Name="tblReserva" EntityType="Self.tblReserva" />
+          <AssociationSet Name="FK__tblFuncio__IDCar__2C3393D0" Association="Self.FK__tblFuncio__IDCar__2C3393D0">
+            <End Role="tblCargo" EntitySet="tblCargo" />
+            <End Role="tblFuncionario" EntitySet="tblFuncionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmpres__IDFun__35BCFE0A" Association="Self.FK__tblEmpres__IDFun__35BCFE0A">
+            <End Role="tblFuncionario" EntitySet="tblFuncionario" />
+            <End Role="tblEmprestimo" EntitySet="tblEmprestimo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmpres__IDLei__37A5467C" Association="Self.FK__tblEmpres__IDLei__37A5467C">
+            <End Role="tblLeitor" EntitySet="tblLeitor" />
+            <End Role="tblEmprestimo" EntitySet="tblEmprestimo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmpres__IDPro__36B12243" Association="Self.FK__tblEmpres__IDPro__36B12243">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblEmprestimo" EntitySet="tblEmprestimo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblLeitor__IDTip__32E0915F" Association="Self.FK__tblLeitor__IDTip__32E0915F">
+            <End Role="tblTipoLeitor" EntitySet="tblTipoLeitor" />
+            <End Role="tblLeitor" EntitySet="tblLeitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__IDLei__3A81B327" Association="Self.FK__tblReserv__IDLei__3A81B327">
+            <End Role="tblLeitor" EntitySet="tblLeitor" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblReserv__IDPro__398D8EEE" Association="Self.FK__tblReserv__IDPro__398D8EEE">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblReserva" EntitySet="tblReserva" />
+          </AssociationSet>
+          <EntitySet Name="tblFavoritos" EntityType="TCCFModel.tblFavoritos" />
+          <EntitySet Name="tblGeneroProduto" EntityType="TCCFModel.tblGeneroProduto" />
+          <AssociationSet Name="FK__tblFavori__IDLei__36B12243" Association="TCCFModel.FK__tblFavori__IDLei__36B12243">
+            <End Role="tblLeitor" EntitySet="tblLeitor" />
+            <End Role="tblFavoritos" EntitySet="tblFavoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblFavori__IDPro__37A5467C" Association="TCCFModel.FK__tblFavori__IDPro__37A5467C">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblFavoritos" EntitySet="tblFavoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblGenero__IDGen__276EDEB3" Association="TCCFModel.FK__tblGenero__IDGen__276EDEB3">
+            <End Role="tblGenero" EntitySet="tblGenero" />
+            <End Role="tblGeneroProduto" EntitySet="tblGeneroProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblGenero__IDPro__286302EC" Association="TCCFModel.FK__tblGenero__IDPro__286302EC">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblGeneroProduto" EntitySet="tblGeneroProduto" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblFavoritos">
+          <Key>
+            <PropertyRef Name="IDFavorito" />
+          </Key>
+          <Property Name="IDFavorito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDLeitor" Type="Int32" />
+          <Property Name="IDProduto" Type="Int32" />
+          <NavigationProperty Name="tblLeitor" Relationship="TCCFModel.FK__tblFavori__IDLei__36B12243" FromRole="tblFavoritos" ToRole="tblLeitor" />
+          <NavigationProperty Name="tblProduto" Relationship="TCCFModel.FK__tblFavori__IDPro__37A5467C" FromRole="tblFavoritos" ToRole="tblProduto" />
+        </EntityType>
+        <EntityType Name="tblGeneroProduto">
+          <Key>
+            <PropertyRef Name="IDGeneroProduto" />
+          </Key>
+          <Property Name="IDGeneroProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDGenero" Type="Int32" />
+          <Property Name="IDProduto" Type="Int32" />
+          <NavigationProperty Name="tblGenero" Relationship="TCCFModel.FK__tblGenero__IDGen__276EDEB3" FromRole="tblGeneroProduto" ToRole="tblGenero" />
+          <NavigationProperty Name="tblProduto" Relationship="TCCFModel.FK__tblGenero__IDPro__286302EC" FromRole="tblGeneroProduto" ToRole="tblProduto" />
+        </EntityType>
+        <Association Name="FK__tblFavori__IDLei__36B12243">
+          <End Type="TCCFModel.tblLeitor" Role="tblLeitor" Multiplicity="0..1" />
+          <End Type="TCCFModel.tblFavoritos" Role="tblFavoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLeitor">
+              <PropertyRef Name="IDLeitor" />
+            </Principal>
+            <Dependent Role="tblFavoritos">
+              <PropertyRef Name="IDLeitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblFavori__IDPro__37A5467C">
+          <End Type="TCCFModel.tblProduto" Role="tblProduto" Multiplicity="0..1" />
+          <End Type="TCCFModel.tblFavoritos" Role="tblFavoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="IDProduto" />
+            </Principal>
+            <Dependent Role="tblFavoritos">
+              <PropertyRef Name="IDProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblGenero__IDGen__276EDEB3">
+          <End Type="TCCFModel.tblGenero" Role="tblGenero" Multiplicity="0..1" />
+          <End Type="TCCFModel.tblGeneroProduto" Role="tblGeneroProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGenero">
+              <PropertyRef Name="IDGenero" />
+            </Principal>
+            <Dependent Role="tblGeneroProduto">
+              <PropertyRef Name="IDGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblGenero__IDPro__286302EC">
+          <End Type="TCCFModel.tblProduto" Role="tblProduto" Multiplicity="0..1" />
+          <End Type="TCCFModel.tblGeneroProduto" Role="tblGeneroProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="IDProduto" />
+            </Principal>
+            <Dependent Role="tblGeneroProduto">
+              <PropertyRef Name="IDProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TCCFModelStoreContainer" CdmEntityContainer="TCCFEntities">
+          <EntitySetMapping Name="tblCargo">
+            <EntityTypeMapping TypeName="TCCFModel.tblCargo">
+              <MappingFragment StoreEntitySet="tblCargo">
+                <ScalarProperty Name="IDCargo" ColumnName="IDCargo" />
+                <ScalarProperty Name="NomeCargo" ColumnName="NomeCargo" />
+                <ScalarProperty Name="NivelAcesso" ColumnName="NivelAcesso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEmprestimo">
+            <EntityTypeMapping TypeName="TCCFModel.tblEmprestimo">
+              <MappingFragment StoreEntitySet="tblEmprestimo">
+                <ScalarProperty Name="IDEmprestimo" ColumnName="IDEmprestimo" />
+                <ScalarProperty Name="IDFuncionario" ColumnName="IDFuncionario" />
+                <ScalarProperty Name="IDProduto" ColumnName="IDProduto" />
+                <ScalarProperty Name="IDLeitor" ColumnName="IDLeitor" />
+                <ScalarProperty Name="DataRetirada" ColumnName="DataRetirada" />
+                <ScalarProperty Name="DataEntrega" ColumnName="DataEntrega" />
+                <ScalarProperty Name="Renovacao" ColumnName="Renovacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEvento">
+            <EntityTypeMapping TypeName="TCCFModel.tblEvento">
+              <MappingFragment StoreEntitySet="tblEvento">
+                <ScalarProperty Name="IDEvento" ColumnName="IDEvento" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Responsavel" ColumnName="Responsavel" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFuncionario">
+            <EntityTypeMapping TypeName="TCCFModel.tblFuncionario">
+              <MappingFragment StoreEntitySet="tblFuncionario">
+                <ScalarProperty Name="IDFuncionario" ColumnName="IDFuncionario" />
+                <ScalarProperty Name="IDCargo" ColumnName="IDCargo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="RG" ColumnName="RG" />
+                <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="ImagemFunc" ColumnName="ImagemFunc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGenero">
+            <EntityTypeMapping TypeName="TCCFModel.tblGenero">
+              <MappingFragment StoreEntitySet="tblGenero">
+                <ScalarProperty Name="IDGenero" ColumnName="IDGenero" />
+                <ScalarProperty Name="NomeGenero" ColumnName="NomeGenero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLeitor">
+            <EntityTypeMapping TypeName="TCCFModel.tblLeitor">
+              <MappingFragment StoreEntitySet="tblLeitor">
+                <ScalarProperty Name="IDLeitor" ColumnName="IDLeitor" />
+                <ScalarProperty Name="IDTipoLeitor" ColumnName="IDTipoLeitor" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="RG" ColumnName="RG" />
+                <ScalarProperty Name="DataNasc" ColumnName="DataNasc" />
+                <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="ImagemLeitor" ColumnName="ImagemLeitor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProduto">
+            <EntityTypeMapping TypeName="TCCFModel.tblProduto">
+              <MappingFragment StoreEntitySet="tblProduto">
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="IDProduto" ColumnName="IDProduto" />
+                <ScalarProperty Name="TipoAcervo" ColumnName="TipoAcervo" />
+                <ScalarProperty Name="NomeLivro" ColumnName="NomeLivro" />
+                <ScalarProperty Name="AutoresLivro" ColumnName="AutoresLivro" />
+                <ScalarProperty Name="AnoEdicao" ColumnName="AnoEdicao" />
+                <ScalarProperty Name="Setor" ColumnName="Setor" />
+                <ScalarProperty Name="Fileira" ColumnName="Fileira" />
+                <ScalarProperty Name="Prateleira" ColumnName="Prateleira" />
+                <ScalarProperty Name="TipoProduto" ColumnName="TipoProduto" />
+                <ScalarProperty Name="Editora" ColumnName="Editora" />
+                <ScalarProperty Name="DescricaoProd" ColumnName="DescricaoProd" />
+                <ScalarProperty Name="ImagemProd" ColumnName="ImagemProd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTipoLeitor">
+            <EntityTypeMapping TypeName="TCCFModel.tblTipoLeitor">
+              <MappingFragment StoreEntitySet="tblTipoLeitor">
+                <ScalarProperty Name="IDTipoLeitor" ColumnName="IDTipoLeitor" />
+                <ScalarProperty Name="TipoLeitor" ColumnName="TipoLeitor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblReserva">
+            <EntityTypeMapping TypeName="TCCFModel.tblReserva">
+              <MappingFragment StoreEntitySet="tblReserva">
+                <ScalarProperty Name="IDReserva" ColumnName="IDReserva" />
+                <ScalarProperty Name="IDProduto" ColumnName="IDProduto" />
+                <ScalarProperty Name="IDLeitor" ColumnName="IDLeitor" />
+                <ScalarProperty Name="DataReserva" ColumnName="DataReserva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFavoritos">
+            <EntityTypeMapping TypeName="TCCFModel.tblFavoritos">
+              <MappingFragment StoreEntitySet="tblFavoritos">
+                <ScalarProperty Name="IDProduto" ColumnName="IDProduto" />
+                <ScalarProperty Name="IDLeitor" ColumnName="IDLeitor" />
+                <ScalarProperty Name="IDFavorito" ColumnName="IDFavorito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGeneroProduto">
+            <EntityTypeMapping TypeName="TCCFModel.tblGeneroProduto">
+              <MappingFragment StoreEntitySet="tblGeneroProduto">
+                <ScalarProperty Name="IDProduto" ColumnName="IDProduto" />
+                <ScalarProperty Name="IDGenero" ColumnName="IDGenero" />
+                <ScalarProperty Name="IDGeneroProduto" ColumnName="IDGeneroProduto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

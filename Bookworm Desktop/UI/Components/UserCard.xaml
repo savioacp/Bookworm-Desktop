@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Bookworm_Desktop.UI.Components.UserCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bookworm_Desktop.UI.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="256" Height="80">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Ellipse Margin="10">
+            <Ellipse.Fill>
+                <ImageBrush x:Name="ProfileImage" ImageSource="{StaticResource DefaultProfileImage}" Stretch="UniformToFill"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <TextBlock Name="Username" TextWrapping="Wrap" FontFamily="/Resources/Fonts/#Josefin Sans" TextAlignment="Left" VerticalAlignment="Center" Foreground="#FCFCFC" FontSize="20">
+                <TextBlock.Text>
+                    Usuário
+                </TextBlock.Text>
+            </TextBlock>
+            <Line Stroke="#AABBCC" StrokeThickness="1" X1="0" X2="{Binding Parent.Children[0].ActualWidth, RelativeSource={RelativeSource Self}}" Grid.Row="2">
+                <Line.RenderTransform>
+                    <TranslateTransform X="-10" Y="-10"/>
+                </Line.RenderTransform>
+            </Line>
+        </Grid>
+    </Grid>
+</UserControl>
