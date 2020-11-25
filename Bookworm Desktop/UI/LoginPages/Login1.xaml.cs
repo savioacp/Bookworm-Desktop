@@ -35,7 +35,7 @@ namespace Bookworm_Desktop.UI.LoginPages
                     {
                         try
                         {
-                            StateRepository.loggedInUser.Set(db.tblFuncionario.First(f => f.Email == txtEmail.Text));
+                            StateRepository.loggedInUser.Set(db.tblFuncionario.Include("tblCargo").First(f => f.Email == txtEmail.Text));
                             BeginStoryboard((Storyboard)FindResource("PanelChangeStoryboard"));
                         }
                         catch

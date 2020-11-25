@@ -29,7 +29,7 @@
                 </components:MenuButton.AssociatedView>
             </components:MenuButton>
 
-            <components:MenuButton Text="Funcionários">
+            <components:MenuButton Text="Funcionários" x:Name="MenuButtonFuncionários">
                 <components:MenuButton.AssociatedView>
                     <views:FuncionariosView />
                 </components:MenuButton.AssociatedView>

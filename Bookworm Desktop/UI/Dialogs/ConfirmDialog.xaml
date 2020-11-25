@@ -6,31 +6,31 @@
         xmlns:local="clr-namespace:Bookworm_Desktop.UI.Dialogs"
         xmlns:components="clr-namespace:Bookworm_Desktop.UI.Components"
         mc:Ignorable="d"
-        Title="ConfirmDialog" Height="355.579" Width="800" ShowInTaskbar="False" WindowStyle="None" BorderThickness="0" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent">
-    <Border>
+        Title="ConfirmDialog" Width="800" Height="auto" ShowInTaskbar="False" WindowStyle="None" BorderThickness="0" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent">
+    <Border  MaxHeight="350">
         <Border.BorderBrush>#AABBCC</Border.BorderBrush>
         <Border.BorderThickness>2</Border.BorderThickness>
         <Border.CornerRadius>5</Border.CornerRadius>
         <Border.Background>#19323C</Border.Background>
-        <Grid MouseDown="OnHeaderDrag">
+        <Grid MouseDown="OnHeaderDrag" Height="Auto">
             <Grid.RowDefinitions>
-                <RowDefinition Height="75"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="75"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Name="txtTitle" Margin="15,35,15,0" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="SemiBold" FontSize="35" Foreground="#FCFCFC">Título</TextBlock>
+            <TextBlock Grid.Row="0" Name="txtTitle" Margin="15,35,15,0" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="SemiBold" FontSize="35" Foreground="#FCFCFC" TextWrapping="Wrap">Título</TextBlock>
             <TextBlock Grid.Row="1" x:Name="txtDescription" Margin="25,0,15,15" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Light" FontSize="30" Foreground="#FCFCFC">Esta ação não tem mais volta.</TextBlock>
 
             <RadioButton IsChecked="True" Name="RadioButtonNão" GroupName="DialogRadioButton" Grid.Row="2" Style="{StaticResource RadioButtonStyled}" VerticalAlignment="Center" Margin="25,0,0,0" VerticalContentAlignment="Center">
                 <TextBlock FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Light" FontSize="27" Foreground="#FCFCFC" Margin="0,5,0,0">
-                    Não
+                    Não, quero voltar.
                 </TextBlock>
             </RadioButton>
             <RadioButton Grid.Row="3" Name="RadioButtonSim" GroupName="DialogRadioButton" Style="{StaticResource RadioButtonStyled}" VerticalAlignment="Center" Margin="25,0,0,0" VerticalContentAlignment="Center" >
                 <TextBlock FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Light" FontSize="27" Foreground="#FCFCFC" Margin="0,5,0,0">
-                    Sim
+                    Sim, tenho certeza.
                 </TextBlock>
             </RadioButton>
             <components:Clickable Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0" Click="OnConfirm">

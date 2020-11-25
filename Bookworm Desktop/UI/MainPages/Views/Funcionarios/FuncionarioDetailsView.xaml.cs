@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SugmaState;
 
 namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
 {
@@ -20,8 +21,12 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
     /// </summary>
     public partial class FuncionarioDetailsView : UserControl
     {
-        public FuncionarioDetailsView(tblFuncionario funcionario)
+        private tblFuncionario _currentFuncionario;
+        private FuncionarioEditView.EditContext _context;
+        public FuncionarioDetailsView(tblFuncionario funcionario, FuncionarioEditView.EditContext ctx)
         {
+            _context = ctx;
+
             InitializeComponent();
 
             txtNome.Text = funcionario.Nome;
@@ -33,20 +38,30 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
             txtTel.Text = funcionario.Telefone;
             txtID.Text = $"ID: {funcionario.IDFuncionario}";
 
+            _currentFuncionario = funcionario;
             var converter = new ByteToImageConverter();
 
-            imgFuncionario.Source = (ImageSource) converter.Convert(funcionario.ImagemFunc, typeof(ImageSource), null,
-                null);
+            imgFuncionario.Source = (ImageSource) converter.Convert(funcionario.ImagemFunc, typeof(ImageSource), null, null);
+
+            if (_context == FuncionarioEditView.EditContext.Creating)
+                txtHeader.Text = "Vamos adcionar este novo membro na nossa equipe! Essas informações estão corretas?";
         }
 
-        private void GoBack(object sender, RoutedEventArgs e)
+        private void Confirm(object sender, RoutedEventArgs e)
         {
             StateRepository.currentView.Set(new FuncionariosView());
+        }
+        private void GoBack(object sender, RoutedEventArgs e)
+        {
+            if(_context == FuncionarioEditView.EditContext.Editing)
+                Confirm(sender, e);
+            else
+                EditClick(sender, e);
         }
 
         private void EditClick(object sender, RoutedEventArgs e)
         {
-
+            StateRepository.currentView.Set(new FuncionarioEditView(_currentFuncionario, FuncionarioEditView.EditContext.Editing));
         }
     }
 }

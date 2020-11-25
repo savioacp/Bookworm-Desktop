@@ -71,7 +71,7 @@
                 <components:Clickable Grid.Column="1" x:Name="ButtonDelete" Click="DeleteSelected">
                     <Image Source="/Resources/Images/lixo 1.png" Stretch="Uniform" Margin="2"/>
                 </components:Clickable>
-                <components:Clickable Grid.Column="2" x:Name="ButtonAdd">
+                <components:Clickable Grid.Column="2" x:Name="ButtonAdd" Click="Add">
                     <Image Source="/Resources/Images/plus 1.png" Stretch="Uniform" Margin="2"/>
                 </components:Clickable>
             </Grid>

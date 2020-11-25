@@ -17,8 +17,9 @@ namespace Bookworm_Desktop.UI
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value == null)
-				return (ImageSource)(Application.Current.TryFindResource(""));
+			if (value == null || ((byte[])value).Length == 0)
+				return (ImageSource) Application.Current.TryFindResource("DefaultProfileImage");
+
 			var sourceBytes = (byte[])value;
 			BitmapImage toReturn = new BitmapImage();
 			using (var ms = new MemoryStream(sourceBytes))
@@ -32,8 +33,19 @@ namespace Bookworm_Desktop.UI
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
+        {
+            if (!(value is BitmapSource source)) return new byte[0];
+
+
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+
+            encoder.Frames.Add(BitmapFrame.Create(source));
+				
+            using var ms = new MemoryStream();
+                
+            encoder.Save(ms);
+
+            return ms.ToArray();
+        }
 	}
 }

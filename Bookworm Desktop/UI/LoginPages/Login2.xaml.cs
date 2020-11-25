@@ -56,5 +56,10 @@ namespace Bookworm_Desktop.UI.LoginPages
                 Dispatcher.Invoke(() => StateRepository.loggedInUser.Set(new tblFuncionario { Nome = "none" }));
             });
         }
+
+        private void PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            txtPlaceholder.Visibility = txtSenha.Password == "" ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
 }

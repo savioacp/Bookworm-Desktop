@@ -74,6 +74,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -86,6 +101,7 @@
     <Compile Include="tblGeneroProduto.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UI\BooleanNotConverter.cs" />
     <Compile Include="UI\BooleanOrConverter.cs" />
     <Compile Include="UI\ChainConverter.cs" />
     <Compile Include="UI\Components\Clickable.xaml.cs">
@@ -94,10 +110,15 @@
     <Compile Include="UI\Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Extensions\ColorExtensions.cs" />
+    <Compile Include="UI\Extensions\MaskedTextBoxExtensions.cs" />
+    <Compile Include="UI\IsNullOrEmptyConverter.cs" />
     <Compile Include="UI\MainPages\Views\Funcionarios\FuncionarioDetailsView.xaml.cs">
       <DependentUpon>FuncionarioDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\PageHistory.cs" />
+    <Compile Include="UI\MainPages\Views\Funcionarios\FuncionarioEditView.xaml.cs">
+      <DependentUpon>FuncionarioEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Tests\SpinnerTest.xaml.cs">
       <DependentUpon>SpinnerTest.xaml</DependentUpon>
     </Compile>
@@ -146,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainPages\Views\Funcionarios\FuncionarioDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainPages\Views\Funcionarios\FuncionarioEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -311,6 +336,7 @@
       <DependentUpon>DbModel.edmx</DependentUpon>
       <LastGenOutput>DbModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\default-user.png" />
     <Resource Include="Resources\Images\lapis 1.png" />
     <Resource Include="Resources\Images\upload 1.png" />
     <Resource Include="Resources\Images\voltar 5.png" />

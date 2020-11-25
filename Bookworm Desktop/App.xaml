@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="PrimaryColorBrush">#19323C</Color>
-            <BitmapImage x:Key="DefaultProfileImage" UriSource="/Resources/Images/perfil.jpg" />
+            <BitmapImage x:Key="DefaultProfileImage" UriSource="/Resources/Images/default-user.png" />
             <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
                 <Setter Property="Template">
                     <Setter.Value>

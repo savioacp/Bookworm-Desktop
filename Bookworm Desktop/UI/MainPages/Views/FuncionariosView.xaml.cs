@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Bookworm_Desktop.Annotations;
 using Bookworm_Desktop.UI.Dialogs;
 using Bookworm_Desktop.UI.MainPages.Views.Funcionarios;
 
@@ -96,18 +95,23 @@ namespace Bookworm_Desktop.UI.MainPages.Views
 
         public void DeleteSelected(object sender, RoutedEventArgs e)
         {
-            if (ConfirmDialog.Show("Deletar funcionários"))
+
+            using var db = new TCCFEntities();
+
+            var selectedFuncs = matchingFuncs.Get().Where(f => f.IsChecked).ToList();
+
+            if (!selectedFuncs.Any()) return;
+
+            if (ConfirmDialog.Show(String.Format("Tem certeza que deseja deletar este{0} funcionário{0}?", selectedFuncs.Count > 1 ? "s" : "")))
             {
-                using (var db = new TCCFEntities())
-                    foreach (var funcItem in matchingFuncs.Get().Where(f => f.IsChecked))
-                    {
-                        var toDelete = db.tblFuncionario.First(f => f.IDFuncionario == funcItem.Id);
-                        db.tblFuncionario.Remove(toDelete);
+                var toDeleteIds = selectedFuncs.Select(f2 => f2.Id).ToArray();
+                var toDelete = db.tblFuncionario.Where(f => toDeleteIds.Contains(f.IDFuncionario));
 
-                        db.SaveChangesAsync();
+                db.tblFuncionario.RemoveRange(toDelete);
 
-                        DoSearch(sender, e);
-                    }
+                db.SaveChanges();
+
+                DoSearch(sender, e);
             }
         }
 
@@ -121,8 +125,13 @@ namespace Bookworm_Desktop.UI.MainPages.Views
             {
                 var clickedFunc = db.tblFuncionario.Include("tblCargo").First(f => f.IDFuncionario == clickedItemFunc.Id);
 
-                StateRepository.currentView.Set(new FuncionarioDetailsView(clickedFunc));
+                StateRepository.currentView.Set(new FuncionarioDetailsView(clickedFunc, FuncionarioEditView.EditContext.Editing));
             }
+        }
+
+        public void Add(object sender, RoutedEventArgs e)
+        {
+            StateRepository.currentView.Set(new FuncionarioEditView(new tblFuncionario(), FuncionarioEditView.EditContext.Creating));
         }
 
     }

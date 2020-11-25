@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Navigation;
 
 namespace Bookworm_Desktop.UI
 {
@@ -14,7 +15,7 @@ namespace Bookworm_Desktop.UI
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return parameter switch 
+            return parameter switch
             {
                 null => values.Cast<bool?>().Any(value => value == true),
 
@@ -25,6 +26,27 @@ namespace Bookworm_Desktop.UI
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    class SingleBooleanOrConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return parameter switch
+            {
+                bool booleanParameter => value switch
+                {
+                    bool boolean => booleanParameter || boolean,
+                    _ => false
+                },
+                _ => false
+            };
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
