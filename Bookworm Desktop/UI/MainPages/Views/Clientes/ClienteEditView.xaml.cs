@@ -1,5 +1,6 @@
 ﻿using Bookworm_Desktop.Services;
 using Bookworm_Desktop.UI.Extensions;
+using Bookworm_Desktop.UI.MainPages.Views.Funcionarios;
 using Microsoft.Win32;
 using System;
 using System.Globalization;
@@ -10,50 +11,43 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
-namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
+namespace Bookworm_Desktop.UI.MainPages.Views.Clientes
 {
     /// <summary>
-    /// Interação lógica para FuncionarioEditView.xam
+    /// Interação lógica para ClienteEditView.xam
     /// </summary>
-    public partial class FuncionarioEditView : UserControl
+    public partial class ClienteEditView : UserControl
     {
-        public enum EditContext
+        private readonly FuncionarioEditView.EditContext _context;
+        private readonly tblLeitor _currentLeitor;
+        public ClienteEditView(tblLeitor leitor, FuncionarioEditView.EditContext ctx)
         {
-            Creating,
-            Editing
-        }
-
-        private readonly EditContext _context;
-        private readonly tblFuncionario _currentFuncionario;
-        public FuncionarioEditView(tblFuncionario funcionario, EditContext ctx)
-        {
-            _currentFuncionario = funcionario;
+            _currentLeitor = leitor;
             _context = ctx;
 
             InitializeComponent();
 
-
             using var db = new TCCFEntities();
-            var cargos = db.tblCargo.Select(c => c.NomeCargo).ToList();
+            var tiposLeitor = db.tblTipoLeitor.Select(t => t.TipoLeitor).ToList();
 
-            foreach (var cargo in cargos)
-                cbxCargo.Items.Add(cargo);
+            foreach (var tipo in tiposLeitor)
+                cbxCargo.Items.Add(tipo);
 
-            if (_context == EditContext.Creating)
-                txtHeader.Text = "Vamos adcionar este novo membro na nossa equipe!";
+            if (_context == FuncionarioEditView.EditContext.Creating)
+                txtHeader.Text = "Vamos adicionar este leitor na nossa equipe";
             else
             {
-                txtNome.Text = _currentFuncionario.Nome;
-                txtEmail.Text = _currentFuncionario.Email;
-                txtCPF.Text = _currentFuncionario.CPF;
-                txtEndereço.Text = _currentFuncionario.Endereco;
-                txtRG.Text = _currentFuncionario.RG;
-                txtTel.Text = _currentFuncionario.Telefone;
-                txtID.Text = $"ID: {_currentFuncionario.IDFuncionario}";
+                txtNome.Text = _currentLeitor.Nome;
+                txtEmail.Text = _currentLeitor.Email;
+                txtCPF.Text = _currentLeitor.CPF;
+                txtEndereço.Text = _currentLeitor.Endereco;
+                txtRG.Text = _currentLeitor.RG;
+                txtTel.Text = _currentLeitor.Telefone;
+                txtID.Text = $"ID: {_currentLeitor.IDLeitor}";
 
-                cbxCargo.Text = _currentFuncionario.tblCargo.NomeCargo;
+                cbxCargo.Text = _currentLeitor.tblTipoLeitor.TipoLeitor;
 
-                if (_currentFuncionario.IDFuncionario != StateRepository.loggedInUser.Get().IDFuncionario)
+                if (_currentLeitor.IDLeitor != StateRepository.loggedInUser.Get().IDFuncionario)
                 {
                     StackPanel panelSenha = (StackPanel)txtSenha.Parent;
                     panelSenha.Visibility = Visibility.Collapsed;
@@ -62,38 +56,24 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
                     panelConfirmarSenha.Visibility = Visibility.Collapsed;
                 }
 
+                var converter = new ByteToImageConverter();
 
+                if (_currentLeitor.ImagemLeitor != null)
+                    if (_currentLeitor.ImagemLeitor != new byte[] { 0x00 })
+                        imgFuncionario.Source =
+                            (ImageSource)converter.Convert(_currentLeitor.ImagemLeitor, typeof(ImageSource), null,
+                                null);
             }
-            var converter = new ByteToImageConverter();
-            if (_currentFuncionario.ImagemFunc != null)
-                if (_currentFuncionario.ImagemFunc != new byte[] { 0x00 })
-                    imgFuncionario.Source = (ImageSource)converter.Convert(_currentFuncionario.ImagemFunc, typeof(ImageSource), null, null);
 
         }
 
         public void GoBack_Click(object sender, RoutedEventArgs e) => GoBack(sender, e);
-        public void GoBack(object _, RoutedEventArgs e, tblFuncionario func = null)
+        public void GoBack(object _, RoutedEventArgs e, tblLeitor leitor = null)
         {
-            if (_context == EditContext.Editing)
-                StateRepository.currentView.Set(new FuncionarioDetailsView(func ?? _currentFuncionario, _context));
+            if (_context == FuncionarioEditView.EditContext.Editing)
+                StateRepository.currentView.Set(new ClienteDetailsView(leitor ?? _currentLeitor, _context));
             else
-                StateRepository.currentView.Set(new FuncionariosView());
-        }
-
-        public void ChooseImage(object _, RoutedEventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog
-            {
-                Filter = "Imagens |*.png;*.jpg",
-                CheckFileExists = true,
-                Title = "Escolha uma imagem",
-                Multiselect = false,
-            };
-
-            if (ofd.ShowDialog() == true)
-            {
-                imgFuncionario.Source = new BitmapImage(new Uri(ofd.FileName));
-            }
+                StateRepository.currentView.Set(new ClientesView());
         }
 
         private void ConfirmCreate()
@@ -131,7 +111,7 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
 
             var (senha, salt) = Authentication.RegisterUser(txtSenha.Password);
 
-            var func = new tblFuncionario()
+            var leitor = new tblLeitor()
             {
                 Nome = txtNome.Text,
                 CPF = txtCPF.StripMask(),
@@ -141,15 +121,15 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
                 Telefone = txtTel.StripMask(),
                 Senha = senha,
                 Salt = salt,
-                tblCargo = db.tblCargo.First(f => f.NomeCargo == cbxCargo.Text),
-                ImagemFunc = (byte[])new ByteToImageConverter().ConvertBack(imgFuncionario.Source, typeof(byte[]), null, CultureInfo.CurrentCulture)
+                tblTipoLeitor = db.tblTipoLeitor.First(f => f.TipoLeitor == cbxCargo.Text),
+                ImagemLeitor = (byte[])new ByteToImageConverter().ConvertBack(imgFuncionario.Source, typeof(byte[]), null, CultureInfo.CurrentCulture)
             };
-            db.tblFuncionario.Add(func);
+            db.tblLeitor.Add(leitor);
             db.SaveChanges();
 
-            func = db.tblFuncionario.Find(func.IDFuncionario);
+            leitor = db.tblLeitor.Find(leitor.IDLeitor);
 
-            StateRepository.currentView.Set(new FuncionarioDetailsView(func, _context));
+            StateRepository.currentView.Set(new ClienteDetailsView(leitor, _context));
         }
 
         private void ConfirmEdit(object sender, RoutedEventArgs e)
@@ -163,24 +143,24 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
 
             using var db = new TCCFEntities();
 
-            var func = db.tblFuncionario.Include("tblCargo").First(f => f.IDFuncionario == _currentFuncionario.IDFuncionario);
+            var leitor = db.tblLeitor.Include("tblTipoLeitor").First(l => l.IDLeitor == _currentLeitor.IDLeitor);
 
-            func.Nome = txtNome.Text;
-            func.RG = txtRG.StripMask();
-            func.CPF = txtCPF.StripMask();
-            func.Email = txtEmail.Text;
-            func.Endereco = txtEndereço.Text;
-            func.Telefone = txtTel.StripMask();
-            func.ImagemFunc = (byte[])new ByteToImageConverter().ConvertBack(imgFuncionario.Source, typeof(byte[]),
+            leitor.Nome = txtNome.Text;
+            leitor.RG = txtRG.StripMask();
+            leitor.CPF = txtCPF.StripMask();
+            leitor.Email = txtEmail.Text;
+            leitor.Endereco = txtEndereço.Text;
+            leitor.Telefone = txtTel.StripMask();
+            leitor.ImagemLeitor = (byte[])new ByteToImageConverter().ConvertBack(imgFuncionario.Source, typeof(byte[]),
                 null, CultureInfo.CurrentCulture);
 
             db.SaveChanges();
 
-            GoBack(sender, e, func);
+            GoBack(sender, e, leitor);
         }
         private void Confirm(object sender, RoutedEventArgs e)
         {
-            if (_context == EditContext.Editing)
+            if (_context == FuncionarioEditView.EditContext.Editing)
                 ConfirmEdit(sender, e);
             else
                 ConfirmCreate();
@@ -189,9 +169,9 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
         private void WarnText(IInputElement element)
         {
             var backgroundBefore = ((Style)FindResource("BaseTextStyle"))
-                                .Setters.OfType<Setter>()
-                                .First(s => s.Property == BackgroundProperty)
-                                .Value as Brush;
+                                    .Setters.OfType<Setter>()
+                                    .First(s => s.Property == BackgroundProperty)
+                                    .Value as Brush;
 
             void Handler(object sender, EventArgs e)
             {
@@ -206,6 +186,22 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
             element.KeyDown += Handler;
 
             txtPasswordError.BeginAnimation(HeightProperty, new DoubleAnimation(15, new Duration(new TimeSpan(0, 0, 0, 0, 200))));
+        }
+
+        private void ChooseImage(object _, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "Imagens |*.png;*.jpg",
+                CheckFileExists = true,
+                Title = "Escolha uma imagem",
+                Multiselect = false,
+            };
+
+            if (ofd.ShowDialog() == true)
+            {
+                imgFuncionario.Source = new BitmapImage(new Uri(ofd.FileName));
+            }
         }
     }
 }

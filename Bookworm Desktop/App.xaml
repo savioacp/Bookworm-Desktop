@@ -26,6 +26,11 @@
                 </Setter>
             </Style>
 
+            <!-- Fancy Image :-) -->
+            <Style TargetType="Image">
+                <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"></Setter>
+            </Style>
+
             <!--ScrollBars-->
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
                 <Setter Property="Stylus.IsFlicksEnabled" Value="false" />

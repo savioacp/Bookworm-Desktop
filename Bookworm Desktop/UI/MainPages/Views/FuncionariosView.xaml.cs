@@ -1,29 +1,19 @@
-﻿using SugmaState;
+﻿using Bookworm_Desktop.UI.Dialogs;
+using Bookworm_Desktop.UI.MainPages.Views.Funcionarios;
+using SugmaState;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Bookworm_Desktop.UI.Dialogs;
-using Bookworm_Desktop.UI.MainPages.Views.Funcionarios;
 
 namespace Bookworm_Desktop.UI.MainPages.Views
 {
     /// <summary>
     /// Interação lógica para FuncionariosView.xam
     /// </summary>
-    public partial class FuncionariosView : UserControl
+    public partial class FuncionariosView : UserControl, IReloadable
     {
         public class ItemFuncionario : INotifyPropertyChanged
         {
@@ -134,5 +124,28 @@ namespace Bookworm_Desktop.UI.MainPages.Views
             StateRepository.currentView.Set(new FuncionarioEditView(new tblFuncionario(), FuncionarioEditView.EditContext.Creating));
         }
 
+        private void FuncionariosView_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            using (var db = new TCCFEntities())
+                matchingFuncs.Set(db.tblFuncionario.OrderBy(f => f.Nome).Take(10).ToList().Select(f => new ItemFuncionario()
+                {
+                    ImagemFunc = f.ImagemFunc,
+                    IsChecked = false,
+                    Nome = f.Nome,
+                    Id = f.IDFuncionario
+                }));
+        }
+
+        public void OnReload()
+        {
+            using (var db = new TCCFEntities())
+                matchingFuncs.Set(db.tblFuncionario.OrderBy(f => f.Nome).Take(10).ToList().Select(f => new ItemFuncionario()
+                {
+                    ImagemFunc = f.ImagemFunc,
+                    IsChecked = false,
+                    Nome = f.Nome,
+                    Id = f.IDFuncionario
+                }));
+        }
     }
 }

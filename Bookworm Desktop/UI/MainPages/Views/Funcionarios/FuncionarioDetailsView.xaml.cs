@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using SugmaState;
 
 namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
 {
@@ -31,17 +19,17 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
 
             txtNome.Text = funcionario.Nome;
             txtEmail.Text = funcionario.Email;
-            txtCPF.Text = funcionario.CPF;
+            txtCPF.Text = funcionario.CPF.ApplyCPFMask();
             txtCargo.Text = funcionario.tblCargo.NomeCargo;
             txtEndereço.Text = funcionario.Endereco;
-            txtRG.Text = funcionario.RG;
-            txtTel.Text = funcionario.Telefone;
+            txtRG.Text = funcionario.RG.ApplyRGMask();
+            txtTel.Text = funcionario.Telefone.ApplyTelMask();
             txtID.Text = $"ID: {funcionario.IDFuncionario}";
 
             _currentFuncionario = funcionario;
             var converter = new ByteToImageConverter();
 
-            imgFuncionario.Source = (ImageSource) converter.Convert(funcionario.ImagemFunc, typeof(ImageSource), null, null);
+            imgFuncionario.Source = (ImageSource)converter.Convert(funcionario.ImagemFunc, typeof(ImageSource), null, null);
 
             if (_context == FuncionarioEditView.EditContext.Creating)
                 txtHeader.Text = "Vamos adcionar este novo membro na nossa equipe! Essas informações estão corretas?";
@@ -53,7 +41,7 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Funcionarios
         }
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            if(_context == FuncionarioEditView.EditContext.Editing)
+            if (_context == FuncionarioEditView.EditContext.Editing)
                 Confirm(sender, e);
             else
                 EditClick(sender, e);

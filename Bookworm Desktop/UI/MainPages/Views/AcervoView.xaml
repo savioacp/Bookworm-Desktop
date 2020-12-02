@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Bookworm_Desktop.UI.MainPages.Views.AcervoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bookworm_Desktop.UI.MainPages.Views"
+             xmlns:ui="clr-namespace:Bookworm_Desktop.UI"
+             xmlns:components="clr-namespace:Bookworm_Desktop.UI.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ui:ByteToImageConverter x:Key="ByteToImageConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+    <Border Margin="15,15,15,50" CornerRadius="5">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource PrimaryColorBrush}" Opacity="0.95"/>
+        </Border.Background>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="81"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <components:Clickable Grid.Column="0" x:Name="ButtonAdd" Click="Add">
+                    <Image Source="/Resources/Images/plus 1.png" Stretch="Uniform" Margin="5"/>
+                </components:Clickable>
+                <components:SearchTextBox Grid.Column="1" Margin="15,0,15,0" Placeholder="Pesquise por título, editora ou código" DoSearch="DoSearch" x:Name="txtSearch"/>
+            </Grid>
+            <ScrollViewer Grid.Row="1" Margin="0,15,0,0" VerticalScrollBarVisibility="Visible">
+                <ItemsControl x:Name="AcervoContainer">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <components:GeneroComponent Genero="{Binding Genero}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+
+</UserControl>

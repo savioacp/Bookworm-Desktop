@@ -1,78 +1,74 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Security.Policy;
-using System.Web;
 
 namespace Bookworm_Desktop.Services
 {
-	public class Authentication
-	{
-		static RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-		static int ITERATIONS = 10000;
+    public class Authentication
+    {
+        static RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+        static int ITERATIONS = 10000;
 
-		public static (string, string) RegisterUser(string plaintextPassword)
-		{
-			Rfc2898DeriveBytes hash;
-			var generatedSaltBytes = new byte[16];
+        public static (string, string) RegisterUser(string plaintextPassword)
+        {
+            Rfc2898DeriveBytes hash;
+            var generatedSaltBytes = new byte[16];
 
-			rng.GetBytes(generatedSaltBytes);
+            rng.GetBytes(generatedSaltBytes);
 
-			hash = new Rfc2898DeriveBytes(plaintextPassword, generatedSaltBytes, ITERATIONS);
+            hash = new Rfc2898DeriveBytes(plaintextPassword, generatedSaltBytes, ITERATIONS);
 
-			var digestedHashedPassword = BitConverter.ToString(hash.GetBytes(16)).Replace("-","").ToLower();
+            var digestedHashedPassword = BitConverter.ToString(hash.GetBytes(16)).Replace("-", "").ToLower();
 
-			hash.Dispose();
-			var salt = BitConverter.ToString(generatedSaltBytes).Replace("-", "").ToLower();
+            hash.Dispose();
+            var salt = BitConverter.ToString(generatedSaltBytes).Replace("-", "").ToLower();
 
-			return (digestedHashedPassword, salt);
-		}
+            return (digestedHashedPassword, salt);
+        }
 
-		public static bool LogUserIn(string plaintextPassword, string digestedHash, string digestedSalt)
-		{
-			
-			Rfc2898DeriveBytes hash;
-			var saltBytes = StringToByteArray(digestedSalt);
+        public static bool LogUserIn(string plaintextPassword, string digestedHash, string digestedSalt)
+        {
 
-			hash = new Rfc2898DeriveBytes(plaintextPassword, saltBytes, ITERATIONS);
+            Rfc2898DeriveBytes hash;
+            var saltBytes = StringToByteArray(digestedSalt);
 
-			var digestedHashedPassword = BitConverter.ToString(hash.GetBytes(16)).Replace("-", "").ToLower();
+            hash = new Rfc2898DeriveBytes(plaintextPassword, saltBytes, ITERATIONS);
 
-			hash.Dispose();
-			if (digestedHashedPassword != digestedHash)
-				return false;
-			return true;
+            var digestedHashedPassword = BitConverter.ToString(hash.GetBytes(16)).Replace("-", "").ToLower();
 
-		}
+            hash.Dispose();
+            if (digestedHashedPassword != digestedHash)
+                return false;
+            return true;
 
-		public static string GetHash(string password, string salt)
-		{
-			var saltBytes = StringToByteArray(salt);
+        }
 
-			using (var hash = new Rfc2898DeriveBytes(password, saltBytes, ITERATIONS))
-				return BitConverter.ToString(hash.GetBytes(16)).Replace("-", "").ToLower();
-		}
+        public static string GetHash(string password, string salt)
+        {
+            var saltBytes = StringToByteArray(salt);
 
-		private static byte[] StringToByteArray(string hex)
-		{
-			if (hex.Length % 2 == 1)
-				throw new Exception("The binary key cannot have an odd number of digits");
+            using (var hash = new Rfc2898DeriveBytes(password, saltBytes, ITERATIONS))
+                return BitConverter.ToString(hash.GetBytes(16)).Replace("-", "").ToLower();
+        }
 
-			byte[] arr = new byte[hex.Length >> 1];
+        private static byte[] StringToByteArray(string hex)
+        {
+            if (hex.Length % 2 == 1)
+                throw new Exception("The binary key cannot have an odd number of digits");
 
-			for (int i = 0; i < hex.Length >> 1; ++i)
-			{
-				arr[i] = (byte)((GetHexVal(hex[i << 1]) << 4) + (GetHexVal(hex[(i << 1) + 1])));
-			}
+            byte[] arr = new byte[hex.Length >> 1];
 
-			return arr;
-		}
+            for (int i = 0; i < hex.Length >> 1; ++i)
+            {
+                arr[i] = (byte)((GetHexVal(hex[i << 1]) << 4) + (GetHexVal(hex[(i << 1) + 1])));
+            }
 
-		private static int GetHexVal(char hex)
-		{
-			int val = hex;
-			return val - (val < 58 ? 48 : (val < 97 ? 55 : 87));
-		}
-	}
+            return arr;
+        }
+
+        private static int GetHexVal(char hex)
+        {
+            int val = hex;
+            return val - (val < 58 ? 48 : (val < 97 ? 55 : 87));
+        }
+    }
 }

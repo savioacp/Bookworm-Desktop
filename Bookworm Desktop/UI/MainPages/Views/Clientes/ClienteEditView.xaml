@@ -1,14 +1,14 @@
-﻿<UserControl x:Class="Bookworm_Desktop.UI.MainPages.Views.Funcionarios.FuncionarioEditView"
+﻿<UserControl x:Class="Bookworm_Desktop.UI.MainPages.Views.Clientes.ClienteEditView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Bookworm_Desktop.UI.MainPages.Views.Funcionarios"
+             xmlns:local="clr-namespace:Bookworm_Desktop.UI.MainPages.Views.Clientes"
              xmlns:ui="clr-namespace:Bookworm_Desktop.UI"
              xmlns:components="clr-namespace:Bookworm_Desktop.UI.Components"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="800">
     <UserControl.Resources>
         <ui:BooleanOrConverter x:Key="BooleanOrConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -28,7 +28,7 @@
 
             <Setter Property="FontFamily" Value="/Resources/Fonts/#Josefin Sans"/>
             <Setter Property="FontSize" Value="25"/>
-            
+
             <Setter Property="MinWidth" Value="250"/>
 
             <Setter Property="Padding" Value="5,5,5,0"/>
@@ -57,7 +57,7 @@
             </components:Clickable>
             <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="15,0,0,0" 
                        FontWeight="DemiBold" FontSize="35" Name="txtHeader">
-                Editando um funcionário
+                Editando um leitor
             </TextBlock>
             <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,15,0,0" VerticalScrollBarVisibility="Visible">
                 <Grid>
@@ -108,7 +108,7 @@
                                                 Mask="00\.000\.000-&gt;A"></xctk:MaskedTextBox>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Height="72">
-                            <TextBlock>Cargo:</TextBlock>
+                            <TextBlock>Tipo de Leitor:</TextBlock>
                             <ComboBox Name="cbxCargo" Foreground="#19323C" >
                                 <ComboBox.ItemContainerStyle>
                                     <Style TargetType="ComboBoxItem">

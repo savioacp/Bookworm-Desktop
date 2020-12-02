@@ -107,18 +107,45 @@
     <Compile Include="UI\Components\Clickable.xaml.cs">
       <DependentUpon>Clickable.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Components\GeneroComponent.xaml.cs">
+      <DependentUpon>GeneroComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\ChooseUserDialog.xaml.cs">
+      <DependentUpon>ChooseUserDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\ConfirmDialog.xaml.cs">
       <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Extensions\ColorExtensions.cs" />
     <Compile Include="UI\Extensions\MaskedTextBoxExtensions.cs" />
+    <Compile Include="UI\IReloadable.cs" />
     <Compile Include="UI\IsNullOrEmptyConverter.cs" />
+    <Compile Include="UI\MainPages\JoinArrayConverter.cs" />
+    <Compile Include="UI\MainPages\Views\AcervoView.xaml.cs">
+      <DependentUpon>AcervoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainPages\Views\Acervo\AcervoDetailsView.xaml.cs">
+      <DependentUpon>AcervoDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainPages\Views\Acervo\AcervoEditView.xaml.cs">
+      <DependentUpon>AcervoEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainPages\Views\ClientesView.xaml.cs">
+      <DependentUpon>ClientesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainPages\Views\Clientes\ClienteDetailsView.xaml.cs">
+      <DependentUpon>ClienteDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainPages\Views\Clientes\ClienteEditView.xaml.cs">
+      <DependentUpon>ClienteEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainPages\Views\Funcionarios\FuncionarioDetailsView.xaml.cs">
       <DependentUpon>FuncionarioDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainPages\Views\Funcionarios\FuncionarioEditView.xaml.cs">
       <DependentUpon>FuncionarioEditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\StringExtensions.cs" />
     <Compile Include="UI\Tests\SpinnerTest.xaml.cs">
       <DependentUpon>SpinnerTest.xaml</DependentUpon>
     </Compile>
@@ -127,6 +154,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Components\Clickable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Components\GeneroComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,6 +177,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Dialogs\ChooseUserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Dialogs\ConfirmDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +194,30 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainPages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainPages\Views\AcervoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainPages\Views\Acervo\AcervoDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainPages\Views\Acervo\AcervoEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainPages\Views\ClientesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainPages\Views\Clientes\ClienteDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\MainPages\Views\Clientes\ClienteEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -336,6 +395,10 @@
       <DependentUpon>DbModel.edmx</DependentUpon>
       <LastGenOutput>DbModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\livro.png" />
+    <Resource Include="Resources\Images\logo sem palavras 1.png" />
+    <Resource Include="Resources\Images\ratinho livro.png" />
+    <Resource Include="Resources\Images\livro-default.png" />
     <Resource Include="Resources\Images\default-user.png" />
     <Resource Include="Resources\Images\lapis 1.png" />
     <Resource Include="Resources\Images\upload 1.png" />
@@ -368,6 +431,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UI\MainPages\Views\Home\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

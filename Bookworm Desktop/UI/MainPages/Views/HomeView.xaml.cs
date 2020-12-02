@@ -1,28 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bookworm_Desktop.UI.MainPages.Views
 {
-	/// <summary>
-	/// Interação lógica para HomeView.xam
-	/// </summary>
-	public partial class HomeView : UserControl
-	{
-		public HomeView()
-		{
-			InitializeComponent();
-		}
-	}
+    /// <summary>
+    /// Interação lógica para HomeView.xam
+    /// </summary>
+    public partial class HomeView : UserControl, IReloadable
+    {
+        public HomeView()
+        {
+            InitializeComponent();
+
+            using var db = new TCCFEntities();
+
+            itemsControl.ItemsSource = db.tblProduto.OrderByDescending(p => p.IDProduto).Take(15).ToList();
+        }
+
+        public void OnReload()
+        {
+            using var db = new TCCFEntities();
+
+            itemsControl.ItemsSource = db.tblProduto.OrderByDescending(p => p.IDProduto).Take(15).ToList();
+
+        }
+
+        public void ImageClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }

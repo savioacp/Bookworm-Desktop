@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4c66adaf5188478f92a94a6b1e7384df" Name="Diagram1">
+      <Diagram DiagramId="4c66adaf5188478f92a94a6b1e7384df" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="TCCFModel.tblCargo" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TCCFModel.tblEmprestimo" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TCCFModel.tblEvento" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TCCFModel.tblEmprestimo" Width="1.5" PointX="5.625" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TCCFModel.tblEvento" Width="1.5" PointX="11.25" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TCCFModel.tblFuncionario" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TCCFModel.tblGenero" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TCCFModel.tblGenero" Width="1.5" PointX="10.75" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TCCFModel.tblLeitor" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TCCFModel.tblProduto" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TCCFModel.tblProduto" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TCCFModel.tblTipoLeitor" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TCCFModel.tblReserva" Width="1.5" PointX="8.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="TCCFModel.tblReserva" Width="1.5" PointX="0.5" PointY="5" IsExpanded="true" />
         <AssociationConnector Association="TCCFModel.FK__tblFuncio__IDCar__2C3393D0" ManuallyRouted="false" />
         <AssociationConnector Association="TCCFModel.FK__tblEmpres__IDFun__35BCFE0A" ManuallyRouted="false" />
         <AssociationConnector Association="TCCFModel.FK__tblEmpres__IDLei__37A5467C" ManuallyRouted="false" />
@@ -21,8 +21,8 @@
         <AssociationConnector Association="TCCFModel.FK__tblLeitor__IDTip__32E0915F" ManuallyRouted="false" />
         <AssociationConnector Association="TCCFModel.FK__tblReserv__IDLei__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="TCCFModel.FK__tblReserv__IDPro__398D8EEE" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TCCFModel.tblFavoritos" Width="1.5" PointX="5.25" PointY="10.375" />
-        <EntityTypeShape EntityType="TCCFModel.tblGeneroProduto" Width="1.5" PointX="10" PointY="7.75" />
+        <EntityTypeShape EntityType="TCCFModel.tblFavoritos" Width="1.5" PointX="7.25" PointY="0.5" />
+        <EntityTypeShape EntityType="TCCFModel.tblGeneroProduto" Width="1.5" PointX="10.625" PointY="3.125" />
         <AssociationConnector Association="TCCFModel.FK__tblFavori__IDLei__36B12243" />
         <AssociationConnector Association="TCCFModel.FK__tblFavori__IDPro__37A5467C" />
         <AssociationConnector Association="TCCFModel.FK__tblGenero__IDGen__276EDEB3" />

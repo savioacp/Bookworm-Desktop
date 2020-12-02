@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Bookworm_Desktop.Services;
+﻿using Bookworm_Desktop.Services;
+using Bookworm_Desktop.UI.MainPages.Views;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,7 +37,14 @@ namespace Bookworm_Desktop.UI.LoginPages
             button.Cursor = Cursors.No;
 
             if (StateRepository.loggedInUser.Get().Senha.Equals(Authentication.GetHash(txtSenha.Password, StateRepository.loggedInUser.Get().Salt)))
+            {
                 ((Storyboard)FindResource("AfterLoginStoryboard")).Begin();
+                Task.Run(async () =>
+                {
+                    await Task.Delay(600);
+                    Dispatcher.Invoke(() => StateRepository.currentView.Set(new HomeView()));
+                });
+            }
             else
             {
                 MessageBox.Show("Verifique suas credenciais e tente novamente.", "Senha inválida.", MessageBoxButton.OK, MessageBoxImage.Error);

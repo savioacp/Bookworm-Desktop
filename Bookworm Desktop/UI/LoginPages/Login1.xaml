@@ -65,6 +65,9 @@
                 <Ellipse.Stroke>
                     <SolidColorBrush Color="{StaticResource PrimaryColorBrush}"/>
                 </Ellipse.Stroke>
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="/Resources/Images/ratinho livro.png" RenderOptions.BitmapScalingMode="Fant" />
+                </Ellipse.Fill>
                 <!--<Ellipse.Fill>
                     <ImageBrush ImageSource="/Resources/Images/perfil.jpg" Stretch="UniformToFill" />
                 </Ellipse.Fill>-->

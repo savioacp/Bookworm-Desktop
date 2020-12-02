@@ -2,15 +2,13 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Bookworm_Desktop.UI
+namespace Bookworm_Desktop.UI.MainPages
 {
-    class BooleanNotConverter : IValueConverter
+    class JoinArrayConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool b)
-                return b == false;
-            return true;
+            return value != null ? string.Join(", ", (string[])value) : null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

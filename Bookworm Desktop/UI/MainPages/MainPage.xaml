@@ -25,7 +25,7 @@
 
             <components:MenuButton Text="Acervo">
                 <components:MenuButton.AssociatedView>
-                    <views:HomeView />
+                    <views:AcervoView />
                 </components:MenuButton.AssociatedView>
             </components:MenuButton>
 
@@ -37,7 +37,7 @@
 
             <components:MenuButton Text="Leitores">
                 <components:MenuButton.AssociatedView>
-                    <views:HomeView />
+                    <views:ClientesView/>
                 </components:MenuButton.AssociatedView>
             </components:MenuButton>
         </StackPanel>

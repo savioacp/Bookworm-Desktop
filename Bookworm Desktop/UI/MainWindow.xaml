@@ -79,7 +79,7 @@
 
 
 
-            <DoubleAnimation BeginTime="00:00:00.6" Storyboard.Target="{Binding ElementName=JoaoCu}" Storyboard.TargetProperty="(Effect).Radius" From="15" To="0" Duration="00:00:00.7">
+            <DoubleAnimation BeginTime="00:00:00.6" Storyboard.Target="{Binding ElementName=JoaoCu}" Storyboard.TargetProperty="(Effect).Radius" From="15" To="10" Duration="00:00:00.7">
                 <DoubleAnimation.EasingFunction>
                     <QuarticEase EasingMode="EaseInOut"/>
                 </DoubleAnimation.EasingFunction>
