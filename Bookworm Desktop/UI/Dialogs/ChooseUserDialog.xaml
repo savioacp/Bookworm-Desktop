@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bookworm_Desktop.UI.Dialogs"
         xmlns:components="clr-namespace:Bookworm_Desktop.UI.Components"
+        xmlns:ui="clr-namespace:Bookworm_Desktop.UI"
+        xmlns:bookwormDesktop="clr-namespace:Bookworm_Desktop"
         mc:Ignorable="d"
-        Title="ChooseUserDialog" SizeToContent="WidthAndHeight" Background="Transparent">
+        Title="ChooseUserDialog" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    <Window.Resources>
+        <ui:ByteToImageConverter x:Key="ByteToImageConverter"/>
+        <ui:MaskConverter x:Key="MaskConverter"/>
+    </Window.Resources>
     <Border  MinHeight="350" MinWidth="550">
         <Border.BorderBrush>#AABBCC</Border.BorderBrush>
         <Border.BorderThickness>2</Border.BorderThickness>
@@ -18,17 +24,81 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Name="txtTitle" Margin="15,25,15,0" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="SemiBold" FontSize="35" Foreground="#FCFCFC" TextWrapping="Wrap">Empréstimo</TextBlock>
             <TextBlock Grid.Row="1" x:Name="txtDescription" Margin="25,0,15,15" FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Light" FontSize="30" Foreground="#FCFCFC">Escolha o leitor</TextBlock>
 
-            <ScrollViewer MinHeight="250" Grid.Row="2">
-                <ItemsControl ItemsSource="{Binding Leitores}">
+            <components:SearchTextBox x:Name="srchBox" DoSearch="OnSearch" Grid.Row="2" MaxWidth="800" Placeholder="Pesquise por Nome, RG ou CPF"/>
 
+            <ScrollViewer MinHeight="250" Grid.Row="3">
+                <ItemsControl ItemsSource="{Binding Leitores}" Name="itemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DataTemplate.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontFamily" Value="/Resources/Fonts/#Josefin Sans"/>
+                                    <Setter Property="Foreground" Value="#FCFCFC"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                </Style>
+                            </DataTemplate.Resources>
+                            <Grid>
+                                <Grid.Background>
+                                    <SolidColorBrush Color="#19323c"/>
+                                </Grid.Background>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard TargetProperty="(Background).(SolidColorBrush.Color)">
+                                                            <ColorAnimation To="#142830" Duration="0:0:0.2"></ColorAnimation>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.EnterActions>
+                                                <Trigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard TargetProperty="(Background).(SolidColorBrush.Color)">
+                                                            <ColorAnimation To="#19323c" Duration="0:0:0.2"></ColorAnimation>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.ExitActions>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <components:Clickable Click="OnUserClick">
+                                    <StackPanel Orientation="Horizontal" Margin="10">
 
+                                        <Ellipse Width="65" Height="65">
+                                            <Ellipse.Fill>
+                                                <ImageBrush RenderOptions.BitmapScalingMode="Fant" ImageSource="{Binding ImagemLeitor, Converter={StaticResource ByteToImageConverter}}"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Grid Margin="10,0,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Text="{Binding Nome}"/>
+                                            <TextBlock Grid.Row="1" Text="{Binding RG, ConverterParameter='RG', Converter={StaticResource MaskConverter}}"/>
+                                            <TextBlock Grid.Row="2" Text="{Binding CPF, ConverterParameter='CPF', Converter={StaticResource MaskConverter}}"/>
+                                        </Grid>
+                                    </StackPanel>
+                                </components:Clickable>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
-            <components:Clickable Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0" Click="OnConfirm">
+            <components:Clickable Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0" Click="OnConfirm">
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <TextBlock FontFamily="/Resources/Fonts/#Josefin Sans" FontWeight="Normal" FontSize="25" Foreground="#FCFCFC">
                         Confirmar

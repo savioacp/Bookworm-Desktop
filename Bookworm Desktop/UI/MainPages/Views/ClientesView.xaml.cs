@@ -49,18 +49,9 @@ namespace Bookworm_Desktop.UI.MainPages.Views
 
             matchingClients.Listen(cs =>
             {
+                GridDefaultView.Visibility = Visibility.Collapsed;
                 ClientsContainer.ItemsSource = cs;
             });
-
-            using var db = new TCCFEntities();
-
-            matchingClients.Set(db.tblLeitor.OrderBy(c => c.Nome).Take(10).ToList().Select(c => new ItemLeitor()
-            {
-                Id = c.IDLeitor,
-                ImagemLeitor = c.ImagemLeitor,
-                IsChecked = false,
-                Nome = c.Nome
-            }));
         }
 
         public void DoSearch(object sender, RoutedEventArgs e)
@@ -133,15 +124,7 @@ namespace Bookworm_Desktop.UI.MainPages.Views
 
         public void OnReload()
         {
-            using var db = new TCCFEntities();
 
-            matchingClients.Set(db.tblLeitor.OrderBy(c => c.Nome).Take(10).ToList().Select(c => new ItemLeitor()
-            {
-                Id = c.IDLeitor,
-                ImagemLeitor = c.ImagemLeitor,
-                IsChecked = false,
-                Nome = c.Nome
-            }));
         }
     }
 }

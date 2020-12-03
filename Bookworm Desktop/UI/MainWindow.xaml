@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bookworm_Desktop.UI" xmlns:loginpages="clr-namespace:Bookworm_Desktop.UI.LoginPages" xmlns:mainpages="clr-namespace:Bookworm_Desktop.UI.MainPages"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280"
+        Title="Bookworm Desktop" Height="720" Width="1280"
         Background="#444" FontFamily="Josefin Sans"
         x:Name="Window">
     <Window.Resources>

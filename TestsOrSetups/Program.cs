@@ -21,23 +21,23 @@ namespace TestsOrSetups
 
         static void Main(string[] args)
         {
-            //var funcTask = Task.Run(() =>
-            //{
-            //    Console.WriteLine("Adicionando Funcionários");
-            //    AddFuncEntries();
-            //    Console.WriteLine("Funcionários adicionados");
-            //});
+            var funcTask = Task.Run(() =>
+            {
+                Console.WriteLine("Adicionando Funcionários");
+                AddFuncEntries();
+                Console.WriteLine("Funcionários adicionados");
+            });
 
-            //var clientTask = Task.Run(() =>
-            //{
-            //    Console.WriteLine("Adicionando Leitores");
-            //    AddClientEntries();
-            //    Console.WriteLine("Leitores adicionados");
-            //});
+            var clientTask = Task.Run(() =>
+            {
+                Console.WriteLine("Adicionando Leitores");
+                AddClientEntries();
+                Console.WriteLine("Leitores adicionados");
+            });
 
 
-            //funcTask.GetAwaiter().GetResult();
-            //clientTask.GetAwaiter().GetResult();
+            funcTask.GetAwaiter().GetResult();
+            clientTask.GetAwaiter().GetResult();
 
             AddEventos();
 
@@ -302,7 +302,7 @@ namespace TestsOrSetups
                     DataNasc = new DateTime(2003, 04, 22),
                     Email = "julic@gmail.com",
                     Endereco = "Rua Lá pá",
-                    ImagemLeitor = File.ReadAllBytes(@"C:\Users\CakeIsALie\source\repos\Bookworm Desktop\Bookworm Desktop\Resources\Images\perfil.jpg"),
+                    ImagemLeitor = File.ReadAllBytes(@"C:\Users\CakeIsALie\Pictures\juliana olhando pra baixo fofinha.jpg"),
                     Salt = salt,
                     Senha = senha,
                     tblReserva = new[]
@@ -380,7 +380,7 @@ namespace TestsOrSetups
                     Email = "juliana.fusco@bookworm.com",
                     Endereco = "Rua Lá pá",
                     tblCargo = cargoDesenvolvedor,
-                    ImagemFunc = File.ReadAllBytes(@"C:\Users\CakeIsALie\source\repos\Bookworm Desktop\Bookworm Desktop\Resources\Images\perfil.jpg"),
+                    ImagemFunc = File.ReadAllBytes(@"C:\Users\CakeIsALie\Pictures\juliana olhando pra baixo fofinha.jpg"),
                     Salt = salt,
                     Senha = senha
                 });

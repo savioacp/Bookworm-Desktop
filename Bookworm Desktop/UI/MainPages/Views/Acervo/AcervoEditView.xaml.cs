@@ -37,6 +37,9 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Acervo
                 txtSinopse.Text = _produtoAtual.DescricaoProd;
                 txtAutor.Text = _produtoAtual.AutoresLivro;
                 txtTítulo.Text = _produtoAtual.NomeLivro;
+
+                txtPrateleira.Text = $"{_produtoAtual.Prateleira}";
+                txtFileira.Text = $"{_produtoAtual.Fileira}";
                 txtSetor.Text = $"{_produtoAtual.Setor}";
 
                 var converter = new ByteToImageConverter();

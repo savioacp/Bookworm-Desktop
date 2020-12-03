@@ -145,6 +145,7 @@
     <Compile Include="UI\MainPages\Views\Funcionarios\FuncionarioEditView.xaml.cs">
       <DependentUpon>FuncionarioEditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MaskConverter.cs" />
     <Compile Include="UI\StringExtensions.cs" />
     <Compile Include="UI\Tests\SpinnerTest.xaml.cs">
       <DependentUpon>SpinnerTest.xaml</DependentUpon>
@@ -395,6 +396,8 @@
       <DependentUpon>DbModel.edmx</DependentUpon>
       <LastGenOutput>DbModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\ratinho prateleira.png" />
+    <Resource Include="Resources\Images\remove.png" />
     <Resource Include="Resources\Images\livro.png" />
     <Resource Include="Resources\Images\logo sem palavras 1.png" />
     <Resource Include="Resources\Images\ratinho livro.png" />

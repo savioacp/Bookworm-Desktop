@@ -1,10 +1,13 @@
 ﻿using Bookworm_Desktop.UI.Dialogs;
 using Bookworm_Desktop.UI.MainPages.Views.Funcionarios;
 using System;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Bookworm_Desktop.UI.MainPages.Views.Acervo
 {
@@ -13,9 +16,8 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Acervo
     /// </summary>
     public partial class AcervoDetailsView : UserControl
     {
-        private tblProduto _produtoAtual;
-
         private Image imgBorrow;
+        private tblProduto _produtoAtual;
         public AcervoDetailsView(tblProduto produto)
         {
             InitializeComponent();
@@ -34,15 +36,12 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Acervo
             txtFileira.Text = $"{_produtoAtual.Fileira}";
             txtSetor.Text = $"{_produtoAtual.Setor}";
 
-            //imgBorrow = (Image)btnBorrow.Content;
+            imgBorrow = (Image)btnBorrow.Content;
 
-            //if (db.tblEmprestimo.Any(e => e.IDProduto == _produtoAtual.IDProduto))
-            //{
-            //    btnBorrow.Background = new SolidColorBrush((Color) ColorConverter.ConvertFromString("#152B33"));
-            //    imgBorrow.RenderTransform= new ScaleTransform(0.8,0.8,28,28);
-            //}
-
-            txtCount.Text = $"Exemplares Disponíveis: {db.tblProduto.Count(p => p.ISBN == _produtoAtual.ISBN)}";
+            if (db.tblEmprestimo.Count(e => e.IDProduto == _produtoAtual.IDProduto) > 0)
+                imgBorrow.Source = (BitmapImage)FindResource("XImage");
+            
+            txtCount.Text = $"Exemplares Disponíveis: {db.tblProduto.Where(p => p.tblEmprestimo.Count == 0).Count(p => p.ISBN == _produtoAtual.ISBN)}";
 
             var converter = new ByteToImageConverter();
 
@@ -83,32 +82,54 @@ namespace Bookworm_Desktop.UI.MainPages.Views.Acervo
         }
 
 
-        //public void Borrow(object sender, RoutedEventArgs e)
-        //{
-        //    using var db = new TCCFEntities();
-        //    if (!db.tblEmprestimo.Any(e => e.IDProduto == _produtoAtual.IDProduto))
-        //    {
-        //        btnBorrow.Background = new SolidColorBrush((Color) ColorConverter.ConvertFromString("#152B33"));
-        //        imgBorrow.RenderTransform = new ScaleTransform(0.8, 0.8, 28, 28);
+        public void Borrow(object sender, RoutedEventArgs e)
+        {
+            using var db = new TCCFEntities();
 
-        //        db.tblEmprestimo.Add(new tblEmprestimo()
-        //        {
-        //            DataRetirada = DateTime.Now,
-        //            IDFuncionario = StateRepository.loggedInUser.Get().IDFuncionario,
-        //            IDProduto = _produtoAtual.IDProduto,
-        //            Renovacao = 0,
-        //            tblLeitor = db.tblLeitor.First(l => l.Nome.Contains("Sávio"))
-        //        });
-        //    }
-        //    else
-        //    {
-        //        btnBorrow.Background = new SolidColorBrush(Colors.Transparent);
-        //        imgBorrow.RenderTransform = Transform.Identity;
+            if (db.tblEmprestimo.Count(e => e.IDProduto == _produtoAtual.IDProduto) == 0)
+            {
 
-        //        db.tblEmprestimo.RemoveRange(db.tblEmprestimo.Where(e => e.IDProduto == _produtoAtual.IDProduto));
-        //    }
+                var _3DaysAgo = DateTime.Now.AddDays(-3);
 
-        //    db.SaveChanges();
-        //}
+
+                var dialog = new ChooseUserDialog("Empréstimo", "Selecione um usuário da lista")
+                {
+                    Leitores = (
+                        from r in db.tblReserva
+                        where r.DataReserva > _3DaysAgo
+                              && r.IDProduto == _produtoAtual.IDProduto
+                        select r.tblLeitor
+                    ).ToList()
+                };
+
+
+                dialog.ShowDialog();
+
+                if (dialog.Result == null)
+                    return;
+
+                db.tblEmprestimo.Add(new tblEmprestimo()
+                {
+                    DataRetirada = DateTime.Now,
+                    Renovacao = 0,
+                    IDProduto = _produtoAtual.IDProduto,
+                    IDLeitor = dialog.Result.IDLeitor,
+                    IDFuncionario = StateRepository.loggedInUser.Get().IDFuncionario,
+                    DataEntrega = DateTime.Now.AddDays(7)
+                });
+
+                db.SaveChanges();
+
+                StateRepository.currentView.Set(new AcervoDetailsView(db.tblProduto.First(p => p.IDProduto == _produtoAtual.IDProduto)));
+
+            }
+            else
+            {
+                db.tblEmprestimo.Remove(db.tblEmprestimo.First(e => e.IDProduto == _produtoAtual.IDProduto));
+                db.SaveChanges();
+                StateRepository.currentView.Set(new AcervoDetailsView(db.tblProduto.First(p => p.IDProduto == _produtoAtual.IDProduto)));
+
+            }
+        }
     }
 }

@@ -11,6 +11,12 @@
     <UserControl.Resources>
         <ui:ByteToImageConverter x:Key="ByteToImageConverter" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="/Resources/Fonts/#Josefin Sans"/>
+            <Setter Property="FontSize" Value="29"/>
+            <Setter Property="Foreground" Value="#FCFCFC"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
     </UserControl.Resources>
     <Border Margin="15,15,15,50" CornerRadius="5">
         <Border.Background>
@@ -23,6 +29,10 @@
                 <RowDefinition Height="52"/>
             </Grid.RowDefinitions>
             <components:SearchTextBox Margin="15,0,15,0" Placeholder="Pesquise por RG, CPF ou Nome" DoSearch="DoSearch" x:Name="txtSearch"/>
+            <Grid Grid.Row="1" Name="GridDefaultView">
+                <TextBlock TextWrapping="Wrap" Margin="74,25,0,0" HorizontalAlignment="Left" Width="230" Height="99" VerticalAlignment="Top">Faça uma pesquisa sobre algum leitor!</TextBlock>
+                <Image Source="/Resources/Images/ratinho prateleira.png" Margin="235,0,0,0" HorizontalAlignment="Left" Width="385"/>
+            </Grid>
             <ScrollViewer Grid.Row="1" Margin="0,15,0,0" VerticalScrollBarVisibility="Visible">
                 <ItemsControl x:Name="ClientsContainer">
                     <ItemsControl.ItemTemplate>

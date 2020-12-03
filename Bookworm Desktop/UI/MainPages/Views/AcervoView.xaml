@@ -32,18 +32,55 @@
                 <components:SearchTextBox Grid.Column="1" Margin="15,0,15,0" Placeholder="Pesquise por título, editora ou código" DoSearch="DoSearch" x:Name="txtSearch"/>
             </Grid>
             <ScrollViewer Grid.Row="1" Margin="0,15,0,0" VerticalScrollBarVisibility="Visible">
-                <ItemsControl x:Name="AcervoContainer">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <components:GeneroComponent Genero="{Binding Genero}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel Orientation="Vertical"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
+                <Grid>
+                    <ItemsControl x:Name="ResultsContainer">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="25">
+                                    <components:Clickable Cursor="Hand" Click="OpenDetails">
+
+                                        <Image Source="{Binding ImagemProd, Converter={StaticResource ByteToImageConverter}}" Stretch="UniformToFill" MaxWidth="150"/>
+
+                                    </components:Clickable>
+                                    <components:Clickable Cursor="Hand" Click="OpenDetails">
+                                        <Grid >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0"  Text="{Binding NomeLivro}" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#FCFCFC" FontSize="28" FontFamily="/Resources/Fonts/#Josefin Sans"/>
+                                            <TextBlock Grid.Row="1" Text="{Binding AutoresLivro}" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#FCFCFC" FontSize="28" FontFamily="/Resources/Fonts/#Josefin Sans"/>
+                                            <TextBlock Grid.Row="2" Text="{Binding GeneroString}" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#FCFCFC" FontSize="28" FontFamily="/Resources/Fonts/#Josefin Sans"/>
+                                            <TextBlock Grid.Row="3" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#FCFCFC" FontSize="28" FontFamily="/Resources/Fonts/#Josefin Sans">
+                                                <Run  Text="{Binding Editora}"/>
+                                                <Run  Text="{Binding AnoEdicao}"/>
+                                            </TextBlock>
+                                        </Grid>
+                                    </components:Clickable>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <ItemsControl x:Name="AcervoContainer">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <components:GeneroComponent Genero="{Binding Genero}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
             </ScrollViewer>
         </Grid>
     </Border>

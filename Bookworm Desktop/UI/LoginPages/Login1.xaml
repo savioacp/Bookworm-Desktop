@@ -61,12 +61,14 @@
     </UserControl.Resources>
     <Grid VerticalAlignment="Top" Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2">
+            <TextBlock Margin="0,0,0,15" FontFamily="/Resources/Fonts/#Josefin Sans" TextAlignment="Center" Foreground="#19323C" FontSize="100">Login</TextBlock>
             <Ellipse Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}" StrokeThickness="5" MaxWidth="320" Name="imgEmerson">
                 <Ellipse.Stroke>
                     <SolidColorBrush Color="{StaticResource PrimaryColorBrush}"/>
                 </Ellipse.Stroke>
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="/Resources/Images/ratinho livro.png" RenderOptions.BitmapScalingMode="Fant" />
+                    <SolidColorBrush Color="#C4C4C4"/>
+                    <!--<ImageBrush ImageSource="/Resources/Images/ratinho livro.png" RenderOptions.BitmapScalingMode="Fant" />-->
                 </Ellipse.Fill>
                 <!--<Ellipse.Fill>
                     <ImageBrush ImageSource="/Resources/Images/perfil.jpg" Stretch="UniformToFill" />

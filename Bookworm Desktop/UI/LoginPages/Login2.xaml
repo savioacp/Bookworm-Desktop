@@ -27,6 +27,7 @@
             Voltar
         </Button>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2">
+            <TextBlock Margin="0,0,0,15" FontFamily="/Resources/Fonts/#Josefin Sans" TextAlignment="Center" Foreground="#19323C" FontSize="100">Login</TextBlock>
             <Ellipse Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}" StrokeThickness="5" MaxWidth="320" Name="imgEmerson">
                 <Ellipse.Stroke>
                     <SolidColorBrush Color="{StaticResource PrimaryColorBrush}"/>
